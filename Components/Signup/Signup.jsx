@@ -1,29 +1,53 @@
 import React, { useState } from "react";
-import { Button, StyleSheet, TextInput } from "react-native";
+import { Alert, Button, StyleSheet, TextInput } from "react-native";
 import { auth } from "../../firebaseconfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { postUser } from "../../Utils";
 
 export default function Signup() {
-  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleOnPress = () => {
-    console.log("you are inside press");
-    // createUserWithEmailAndPassword(auth, username, password).then(
-    //   (userCredential) => {
-    //     const user = userCredential.user;
-    //     console.log(user, "you have signed-up");
-    //   }
-    // );
+    createUserWithEmailAndPassword(auth, email, password).then(
+      (userCredential) => {
+        const user = userCredential.user;
+        console.log(firstName, lastName, email, user.uid)
+        postUser({firstName,
+          lastName,
+          email, 
+          userId: user.uid})
+        Alert.alert(
+          "Success!",
+          `User ${firstName + lastName} was successfully created`
+        )
+      }
+    );
   };
 
   return (
     <>
       <TextInput
         style={styles.input}
-        value={username}
-        placeholder={"Username"}
-        onChangeText={(text) => setUsername(text)}
+        value={firstName}
+        placeholder={"First name"}
+        onChangeText={(text) => setFirstName(text)}
+        autoCapitalize={"none"}
+      />
+      <TextInput
+        style={styles.input}
+        value={lastName}
+        placeholder={"Last name"}
+        onChangeText={(text) => setLastName(text)}
+        autoCapitalize={"none"}
+      />
+      <TextInput
+        style={styles.input}
+        value={email}
+        placeholder={"Email"}
+        onChangeText={(text) => setEmail(text)}
         autoCapitalize={"none"}
       />
       <TextInput
