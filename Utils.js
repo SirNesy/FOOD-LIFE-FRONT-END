@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const myApi = axios.create({ baseURL: "http://localhost:9494" });
+const myApi = axios.create({ baseURL: "https://food-life.cyclic.app/api" });
 
 export const postUser = ({
   firstName,
@@ -10,7 +10,7 @@ export const postUser = ({
   profile_pic = null,
 }) => {
   return myApi
-    .post("http://192.168.0.193:9494/api/users", {
+    .post("/users", {
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -20,4 +20,10 @@ export const postUser = ({
     .then((res) => {
       return res.data.user;
     });
+};
+
+export const getItems = (user) => {
+  return myApi.get(`/users/${user}/items`).then((res) => {
+    return res.data.items;
+  });
 };

@@ -14,15 +14,11 @@ export default function Signup() {
     createUserWithEmailAndPassword(auth, email, password).then(
       (userCredential) => {
         const user = userCredential.user;
-        console.log(firstName, lastName, email, user.uid)
-        postUser({firstName,
-          lastName,
-          email, 
-          userId: user.uid})
+        postUser({ firstName, lastName, email, userId: user.uid });
         Alert.alert(
           "Success!",
           `User ${firstName + lastName} was successfully created`
-        )
+        );
       }
     );
   };

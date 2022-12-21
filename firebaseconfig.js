@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import {APIKEY} from '@env'
+import { APIKEY } from "@env";
 const { initializeApp } = require("firebase/app");
 const { getAuth } = require("firebase/auth");
 const { getFirestore } = require("firebase/firestore");
@@ -13,8 +13,6 @@ const firebaseConfig = {
   appId: "1:1070224308432:web:f13ef29aae3407ecdf46d5",
   measurementId: "G-J1T28CL52S",
 };
-console.log(firebaseConfig.apiKey);
-// Initialize Firebase
 
 const app = initializeApp(firebaseConfig);
 exports.db = getFirestore(app);

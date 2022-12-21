@@ -5,6 +5,8 @@ import Signup from "./Components/Signup/Signup";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { UserProvider } from "./Components/UserContext/UserContext";
+import Pantry from "./Components/Pantry/Pantry";
+import AddItem from "./Components/AddItem/AddItem";
 
 function HomeScreen({ navigation }) {
   return (
@@ -23,7 +25,6 @@ function Success({ navigation }) {
   );
 }
 
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -34,7 +35,8 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Signin" component={Signin} />
           <Stack.Screen name="Signup" component={Signup} />
-          <Stack.Screen name="Success" component={Success} />
+          <Stack.Screen name="Pantry" component={Pantry} />
+          <Stack.Screen name="AddItem" component={AddItem} />
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>
