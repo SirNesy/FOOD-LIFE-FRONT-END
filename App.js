@@ -7,6 +7,7 @@ import Signin from "./Components/Signin/Signin";
 import Signup from "./Components/Signup/Signup";
 import Pantry from "./Components/Pantry/Pantry";
 import AddItem from "./Components/AddItem/AddItem";
+import RecipesPage from "./Components/RecipesPage/RecipesPage";
 
 function HomeScreen({ navigation }) {
   return (
@@ -14,6 +15,10 @@ function HomeScreen({ navigation }) {
       <Text>Home Screen</Text>
       <Button title="Sign-in" onPress={() => navigation.navigate("Signin")} />
       <Button title="Sign-up" onPress={() => navigation.navigate("Signup")} />
+      <Button
+        title="RecipesPage"
+        onPress={() => navigation.navigate("RecipesPage")}
+      />
     </View>
   );
 }
@@ -30,6 +35,7 @@ export default function App() {
           <Stack.Screen name="Signup" component={Signup} />
           <Stack.Screen name="Pantry" component={Pantry} />
           <Stack.Screen name="AddItem" component={AddItem} />
+          <Stack.Screen name="RecipesPage" component={RecipesPage} />
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>
