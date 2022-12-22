@@ -8,16 +8,19 @@ const Pantry = ({ navigation }) => {
   const { user } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(true);
   const [pantry, setPantry] = useState([]);
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     getItems(user).then((itemsFromApi) => {
       setPantry(itemsFromApi);
       setIsLoading(false);
     });
-  }, [pantry]);
+  }, [counter]);
 
   const handleDeleteItem = (itemId) => {
-    deleteItem(user, itemId).then(() => {});
+    deleteItem(user, itemId).then(() => {
+      setCounter(counter++);
+    });
   };
 
   return (
