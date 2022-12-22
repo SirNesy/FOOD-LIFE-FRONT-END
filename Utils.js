@@ -55,3 +55,13 @@ export const patchItem = (userId, itemId, itemName, amount, expiryDate) => {
       return res.data.item;
     });
 };
+
+export const getSpoonacularRecipes = () => {
+  return axios
+    .get(
+      `https://api.spoonacular.com/food/search?apiKey=a9abf0d5fdeb4803b73a7c04f59572dd&number=10`
+    )
+    .then((res) => {
+      return res.data.searchResults[0].results;
+    });
+};
