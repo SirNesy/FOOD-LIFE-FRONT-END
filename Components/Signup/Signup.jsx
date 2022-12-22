@@ -19,6 +19,7 @@ export default function Signup() {
           "Success!",
           `User ${firstName + lastName} was successfully created`
         );
+        navigation.navigate("Pantry");
       }
     );
   };

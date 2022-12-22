@@ -1,17 +1,41 @@
 import React, { useContext, useState } from "react";
-import { StyleSheet, Text, Button, TextInput } from "react-native";
-// import { postItem } from "../../Utils";
+import { StyleSheet, Text, Button, TextInput, Alert } from "react-native";
+import { patchItem, postItem } from "../../Utils";
 import { UserContext } from "../UserContext/UserContext";
 
-const AddItem = ({ navigation }) => {
+const AddItem = ({ navigation, route }) => {
   const { user } = useContext(UserContext);
-  const [itemName, setItemName] = useState("");
-  const [amount, setAmount] = useState(0);
-  const [expiryDate, setExpiryDate] = useState(0);
+  const [itemName, setItemName] = useState(
+    !route.params ? "" : route.params.item.itemName
+  );
+  const [amount, setAmount] = useState(
+    !route.params ? "" : route.params.item.amount
+  );
+  const [expiryDate, setExpiryDate] = useState(
+    !route.params ? "" : route.params.item.expiryDate
+  );
+
+  const handleAddItem = () => {
+    postItem(user, itemName, amount, expiryDate).then(() => {
+      Alert.alert("Success!", `${itemName} was successfully added to pantry`);
+      navigation.navigate("Pantry");
+    });
+  };
+
+  const handleEditItem = (itemId) => {
+    patchItem(user, itemId, itemName, amount, expiryDate).then(() => {
+      Alert.alert(
+        "Success!",
+        `${itemName} was successfully updated in your pantry`
+      );
+      navigation.navigate("Pantry");
+    });
+  };
 
   return (
     <>
-      <Text>Add Item!</Text>
+      {!route.params ? <Text>Add Item!</Text> : <Text>Edit Item!</Text>}
+
       <TextInput
         style={styles.input}
         value={itemName}
@@ -33,11 +57,13 @@ const AddItem = ({ navigation }) => {
         keyboardType="numeric"
         onChangeText={(numbers) => setExpiryDate(numbers)}
       />
-      {/* <DateTimePicker onChange={console.log("hello")} /> */}
+
       <Button
-        title={"Add Item"}
+        title={!route.params ? "Add Item" : "Edit Item"}
         onPress={() => {
-          handleAddItem();
+          !route.params
+            ? handleAddItem()
+            : handleEditItem(route.params.item.itemId);
         }}
       />
     </>
