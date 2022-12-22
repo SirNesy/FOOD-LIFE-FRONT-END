@@ -14,7 +14,17 @@ const firebaseConfig = {
   measurementId: "G-J1T28CL52S",
 };
 
-const app = initializeApp(firebaseConfig);
+const firebaseConfig2 = {
+  apiKey: APIKEY,
+  authDomain: "foodlife2-d4a15.firebaseapp.com",
+  projectId: "foodlife2-d4a15",
+  storageBucket: "foodlife2-d4a15.appspot.com",
+  messagingSenderId: "614985179823",
+  appId: "1:614985179823:web:d39833e071a46831ee2a5a",
+  measurementId: "G-WGTCVQCZ7L",
+};
+
+const app = initializeApp(firebaseConfig2);
 exports.db = getFirestore(app);
 
 exports.auth = getAuth(app);
