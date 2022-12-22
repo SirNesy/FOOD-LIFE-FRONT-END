@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { APIKEY } from "@env";
+import { APIKEY } from "./env.js";
 const { initializeApp } = require("firebase/app");
 const { getAuth } = require("firebase/auth");
 const { getFirestore } = require("firebase/firestore");

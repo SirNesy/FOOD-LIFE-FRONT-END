@@ -59,19 +59,18 @@ const AddItem = ({ navigation, route }) => {
         keyboardType="numeric"
         onChangeText={(numbers) => setExpiryDate(numbers)}
       />
-      <DatePicker
-        mode="calender"
-        onSelectedChange={(date) => {
-          setExpiryDate(date);
-        }}
-      />
-
       <Button
         title={!route.params ? "Add Item" : "Edit Item"}
         onPress={() => {
           !route.params
             ? handleAddItem()
             : handleEditItem(route.params.item.itemId);
+        }}
+      />
+      <DatePicker
+        mode="calender"
+        onSelectedChange={(date) => {
+          setExpiryDate(date);
         }}
       />
     </>

@@ -27,8 +27,8 @@ function RecipesPage() {
             </View>
           );
         }}
-        keyExtractor={(recipe) => {
-          return recipe.recipeId;
+        keyExtractor={(item) => {
+          return item.recipeId;
         }}
       ></FlatList>
     </>

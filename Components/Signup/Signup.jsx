@@ -4,7 +4,7 @@ import { auth } from "../../firebaseconfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { postUser } from "../../Utils";
 
-export default function Signup() {
+export default function Signup({ navigation }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
