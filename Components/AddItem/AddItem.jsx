@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { StyleSheet, Text, Button, TextInput, Alert } from "react-native";
 import { patchItem, postItem } from "../../Utils";
 import { UserContext } from "../UserContext/UserContext";
+import DatePicker from "react-native-modern-datepicker";
 
 const AddItem = ({ navigation, route }) => {
   const { user } = useContext(UserContext);
@@ -12,7 +13,7 @@ const AddItem = ({ navigation, route }) => {
     !route.params ? "" : route.params.item.amount
   );
   const [expiryDate, setExpiryDate] = useState(
-    !route.params ? "" : route.params.item.expiryDate
+    !route.params ? null : route.params.item.expiryDate
   );
 
   const handleAddItem = () => {
@@ -50,12 +51,19 @@ const AddItem = ({ navigation, route }) => {
         keyboardType="numeric"
         onChangeText={(numbers) => setAmount(numbers)}
       />
+
       <TextInput
         style={styles.input}
         value={expiryDate}
         placeholder={"Expiry Date"}
         keyboardType="numeric"
         onChangeText={(numbers) => setExpiryDate(numbers)}
+      />
+      <DatePicker
+        mode="calender"
+        onSelectedChange={(date) => {
+          setExpiryDate(date);
+        }}
       />
 
       <Button

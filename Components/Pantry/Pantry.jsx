@@ -1,25 +1,29 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, Text, FlatList, View, Button } from "react-native";
-import { deleteItem, getItems, patchItem } from "../../Utils";
+import { deleteItem, getItems } from "../../Utils";
 import { UserContext } from "../UserContext/UserContext";
 import Icon from "react-native-vector-icons/AntDesign";
+import { useIsFocused } from "@react-navigation/native";
 
 const Pantry = ({ navigation }) => {
   const { user } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(true);
   const [pantry, setPantry] = useState([]);
   const [counter, setCounter] = useState(0);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     getItems(user).then((itemsFromApi) => {
       setPantry(itemsFromApi);
       setIsLoading(false);
     });
-  }, [counter]);
+  }, [counter, isFocused]);
 
   const handleDeleteItem = (itemId) => {
     deleteItem(user, itemId).then(() => {
-      setCounter(counter++);
+      setCounter((prev) => {
+        return prev + 1;
+      });
     });
   };
 
@@ -49,7 +53,9 @@ const Pantry = ({ navigation }) => {
                     backgroundColor="#3b5998"
                     size={10}
                     onPress={() => {
-                      navigation.navigate("AddItem", { item: itemData.item });
+                      navigation.navigate("AddItem", {
+                        item: itemData.item,
+                      });
                     }}
                   ></Icon.Button>
                   <Icon.Button
