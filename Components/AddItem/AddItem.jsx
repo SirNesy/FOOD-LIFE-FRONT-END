@@ -3,6 +3,7 @@ import { StyleSheet, Text, Button, TextInput, Alert } from "react-native";
 import { patchItem, postItem } from "../../Utils";
 import { UserContext } from "../UserContext/UserContext";
 import DatePicker from "react-native-modern-datepicker";
+import Icon from "react-native-vector-icons/AntDesign";
 
 const AddItem = ({ navigation, route }) => {
   const { user } = useContext(UserContext);
@@ -36,6 +37,14 @@ const AddItem = ({ navigation, route }) => {
   return (
     <>
       {!route.params ? <Text>Add Item!</Text> : <Text>Edit Item!</Text>}
+
+      <Icon.Button
+        name="camera"
+        size={10}
+        onPress={() => {
+          navigation.navigate("BarCodeScanner");
+        }}
+      ></Icon.Button>
 
       <TextInput
         style={styles.input}
