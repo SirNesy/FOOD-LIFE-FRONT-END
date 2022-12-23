@@ -3,9 +3,10 @@ import { StyleSheet, Text, Button, TextInput, Alert } from "react-native";
 import { patchItem, postItem } from "../../Utils";
 import { UserContext } from "../UserContext/UserContext";
 import DatePicker from "react-native-modern-datepicker";
-import Icon from "react-native-vector-icons/AntDesign";
+
 
 const AddItem = ({ navigation, route, setHeaderVisible }) => {
+  
   console.log(route.params)
   const { user } = useContext(UserContext);
   const [calendarVisible, setCalendarVisible] = useState(false);
@@ -22,6 +23,7 @@ const AddItem = ({ navigation, route, setHeaderVisible }) => {
   const handleAddItem = () => {
     postItem(user, itemName, amount, expiryDate).then(() => {
       Alert.alert("Success!", `${itemName} was successfully added to pantry`);
+      
       navigation.navigate("Pantry");
     });
   };
