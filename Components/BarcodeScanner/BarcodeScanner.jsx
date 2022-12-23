@@ -1,22 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
+import React, { useState, useEffect } from "react";
+import { Text, View, StyleSheet, Button, Alert } from "react-native";
+import { BarCodeScanner } from "expo-barcode-scanner";
+import { getBarcode } from "../../Utils";
 
-const BarcodeScanner = () => {
-    const [hasPermission, setHasPermission] = useState(null);
+const BarcodeScanner = ({ navigation }) => {
+  const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
+      setHasPermission(status === "granted");
     };
 
     getBarCodeScannerPermissions();
   }, []);
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    getBarcode(data).then((title) => {
+      if (!title) {
+        Alert.alert("Item Not Found", "Please input the item manually");
+      }
+      navigation.replace("AddItem", {
+        item: { itemName: title },
+      });
+    });
   };
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
@@ -31,18 +38,20 @@ const BarcodeScanner = () => {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+      {scanned && (
+        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
+      )}
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  });
-  
-export default BarcodeScanner
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
+
+export default BarcodeScanner;

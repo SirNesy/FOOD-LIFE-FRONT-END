@@ -5,8 +5,10 @@ import { UserContext } from "../UserContext/UserContext";
 import DatePicker from "react-native-modern-datepicker";
 import Icon from "react-native-vector-icons/AntDesign";
 
-const AddItem = ({ navigation, route }) => {
+const AddItem = ({ navigation, route, setHeaderVisible }) => {
+  console.log(route.params)
   const { user } = useContext(UserContext);
+  const [calendarVisible, setCalendarVisible] = useState(false);
   const [itemName, setItemName] = useState(
     !route.params ? "" : route.params.item.itemName
   );
@@ -36,52 +38,56 @@ const AddItem = ({ navigation, route }) => {
 
   return (
     <>
-      {!route.params ? <Text>Add Item!</Text> : <Text>Edit Item!</Text>}
+      {calendarVisible ? (
+        <DatePicker
+        style={styles.calendar}
+          mode="calendar"
+          onSelectedChange={(date) => {
+            setExpiryDate(date);
+            setCalendarVisible(false);
+            setHeaderVisible(true)
+          }}
+        />
+      ) : (
+        <>
+          {!route.params ? <Text>Add Item!</Text> : <Text>Edit Item!</Text>}
 
-      <Icon.Button
-        name="camera"
-        size={10}
-        onPress={() => {
-          navigation.navigate("BarCodeScanner");
-        }}
-      ></Icon.Button>
+          <TextInput
+            style={styles.input}
+            value={itemName}
+            placeholder={"Item Name"}
+            onChangeText={(text) => setItemName(text)}
+            autoCapitalize={"none"}
+          />
+          <TextInput
+            style={styles.input}
+            value={amount}
+            placeholder={"Amount"}
+            keyboardType="numeric"
+            onChangeText={(numbers) => setAmount(numbers)}
+          />
 
-      <TextInput
-        style={styles.input}
-        value={itemName}
-        placeholder={"Item Name"}
-        onChangeText={(text) => setItemName(text)}
-        autoCapitalize={"none"}
-      />
-      <TextInput
-        style={styles.input}
-        value={amount}
-        placeholder={"Amount"}
-        keyboardType="numeric"
-        onChangeText={(numbers) => setAmount(numbers)}
-      />
-
-      <TextInput
-        style={styles.input}
-        value={expiryDate}
-        placeholder={"Expiry Date"}
-        keyboardType="numeric"
-        onChangeText={(numbers) => setExpiryDate(numbers)}
-      />
-      <Button
-        title={!route.params ? "Add Item" : "Edit Item"}
-        onPress={() => {
-          !route.params
-            ? handleAddItem()
-            : handleEditItem(route.params.item.itemId);
-        }}
-      />
-      <DatePicker
-        mode="calender"
-        onSelectedChange={(date) => {
-          setExpiryDate(date);
-        }}
-      />
+          <TextInput
+            style={styles.input}
+            value={expiryDate}
+            placeholder={"Expiry Date"}
+            keyboardType="numeric"
+            showSoftInputOnFocus={false}
+            onFocus={() => {
+              setCalendarVisible(true)
+            setHeaderVisible(false)}}
+            onChangeText={(numbers) => setExpiryDate(numbers)}
+          />
+          <Button
+            title={!route.params ? "Add Item" : "Edit Item"}
+            onPress={() => {
+              !route.params
+                ? handleAddItem()
+                : handleEditItem(route.params.item.itemId);
+            }}
+          />
+        </>
+      )}
     </>
   );
 };
@@ -94,4 +100,7 @@ const styles = StyleSheet.create({
     margin: 30,
     backgroundColor: "#fff",
   },
+  calendar: {
+    marginTop:"50%"
+  }
 });
