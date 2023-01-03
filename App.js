@@ -9,9 +9,9 @@ import Icon from "react-native-vector-icons/AntDesign";
 import BarcodeScanner from "./Components/BarcodeScanner/BarcodeScanner";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
+import SingleRecipe from "./Components/SingleRecipe/SingleRecipe";
 import DrawerNavigator from "./Components/DrawerNavigators/DrawerNavigator";
 import HomeScreen from "./Components/HomeScreen/HomeScreen";
-
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -83,6 +83,8 @@ export default function App() {
               />
             )}
           </Stack.Screen>
+
+          <Stack.Screen name="SingleRecipe" component={SingleRecipe} />
           <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
         </Stack.Navigator>
       </NavigationContainer>
