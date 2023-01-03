@@ -6,16 +6,22 @@ import RenderHtml from "react-native-render-html";
 
 function SingleRecipe({ route }) {
   const [recipe, setRecipe] = useState({});
+  const [loading, setIsLoading] = useState(true);
+
   let singleRecipeId = route.params.singleRecipeId;
   useEffect(() => {
-    console.log(singleRecipeId);
     getRecipeById(singleRecipeId).then((res) => {
       setRecipe(res);
+      setIsLoading(false);
     });
   }, []);
   const summary = { html: recipe.summary };
+  //   console.log(ingredientArray[0].name);
+  //   let ingredientArray = [...recipe.extendedIngredients];
 
-  return (
+  return loading ? (
+    <Text>loading....</Text>
+  ) : (
     <ScrollView>
       <Text>{recipe.title}</Text>
       <Image
@@ -23,6 +29,14 @@ function SingleRecipe({ route }) {
         source={{ uri: recipe.image }}
         alt="recipe image"
       />
+      <Text> Ingredients: </Text>
+      {recipe.extendedIngredients.map((ingredient) => {
+        return (
+          <Text>
+            {ingredient.name} : {ingredient.amount} {ingredient.unit}
+          </Text>
+        );
+      })}
       <Text>
         Summary:
         <RenderHtml source={summary} />

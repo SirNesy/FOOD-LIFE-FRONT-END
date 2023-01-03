@@ -73,7 +73,6 @@ export const getRecipeById = (recipeId) => {
       `https://api.spoonacular.com/recipes/1697691/information?apiKey=81726d20184e47e483fcb505e67dbd92`
     )
     .then((res) => {
-      // console.log(res.data);
       return res.data;
     });
 };
