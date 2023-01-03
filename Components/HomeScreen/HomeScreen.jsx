@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Pressable,
   StyleSheet,
@@ -7,9 +7,24 @@ import {
   ImageBackground,
   Image,
 } from "react-native";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebaseconfig";
+import { UserContext } from "../UserContext/UserContext";
 import Gradient from "../../assets/Gradient.png";
 import Logo from "../../assets/Logo.png";
+
+
 function HomeScreen({ navigation }) {
+  const { setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    signOut(auth).then(() => {
+      setUser(null)
+    }).catch((err) => {
+      Alert.alert("Sign out failed", err.message);
+    });
+  }, [])
+  
   return (
     <View style={styles.container}>
       <ImageBackground source={Gradient} style={styles.background}>

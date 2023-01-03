@@ -12,7 +12,7 @@ const DrawerNavigator = () => {
     <Drawer.Navigator>
       <Drawer.Screen name="RecipesPage" component={RecipesPage} />
       <Drawer.Screen name="Pantry" component={Pantry} />
-      <Drawer.Screen options={{headerShown:false}} name="Log Out" component={HomeScreen} />
+      <Drawer.Screen options={{headerShown:false, swipeEnabled:false}} name="Log Out" component={HomeScreen} />
     </Drawer.Navigator>
   )
 }
