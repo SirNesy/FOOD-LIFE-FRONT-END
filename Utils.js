@@ -70,7 +70,7 @@ export const getSpoonacularRecipes = () => {
 export const getRecipeById = (recipeId) => {
   return axios
     .get(
-      `https://api.spoonacular.com/recipes/1697691/information?apiKey=81726d20184e47e483fcb505e67dbd92`
+      `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=81726d20184e47e483fcb505e67dbd92`
     )
     .then((res) => {
       return res.data;
@@ -78,12 +78,26 @@ export const getRecipeById = (recipeId) => {
 };
 //One : 81726d20184e47e483fcb505e67dbd92
 
+export const getRecipesByIngredient = (ingredients) => {
+  return axios
+    .get(
+      `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=15&apiKey=81726d20184e47e483fcb505e67dbd92`
+    )
+    .then((res) => {
+      console.log(res.data);
+      return res.data;
+    });
+};
+
 export const getBarcode = (barcode) => {
   return axios
-    .get(`https://api.barcodelookup.com/v3/products?barcode=${barcode}&formatted=y&key=2wfgf7tqqtfqu6lgp1ss5wd2iamhmp`)
+    .get(
+      `https://api.barcodelookup.com/v3/products?barcode=${barcode}&formatted=y&key=2wfgf7tqqtfqu6lgp1ss5wd2iamhmp`
+    )
     .then((res) => {
-      return (JSON.parse(res.request._response).products[0].title)
-    }).catch(err => {
+      return JSON.parse(res.request._response).products[0].title;
+    })
+    .catch((err) => {
       if (err.code === 404) {
         return null;
       }
