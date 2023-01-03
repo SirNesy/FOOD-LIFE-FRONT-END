@@ -5,7 +5,7 @@ import { UserContext } from "../UserContext/UserContext";
 import DatePicker from "react-native-modern-datepicker";
 
 
-const AddItem = ({ navigation, route, setHeaderVisible }) => {
+const AddItem = ({ navigation, route, setHeaderVisible, schedulePushNotification }) => {
   
   console.log(route.params)
   const { user } = useContext(UserContext);
@@ -21,9 +21,9 @@ const AddItem = ({ navigation, route, setHeaderVisible }) => {
   );
 
   const handleAddItem = () => {
-    postItem(user, itemName, amount, expiryDate).then(() => {
+    postItem(user, itemName, amount, expiryDate).then(async () => {
       Alert.alert("Success!", `${itemName} was successfully added to pantry`);
-      
+      await schedulePushNotification(itemName, expiryDate);
       navigation.navigate("Pantry");
     });
   };
