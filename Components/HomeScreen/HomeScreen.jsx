@@ -1,42 +1,93 @@
-import React from 'react'
-import { Button, StyleSheet, Text, View, ImageBackground, Image } from "react-native";
-import Gradient from "../../assets/Gradient.png"
+import React from "react";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  Image,
+} from "react-native";
+import Gradient from "../../assets/Gradient.png";
+import Logo from "../../assets/Logo.png";
 function HomeScreen({ navigation }) {
-    return (
-      <View 
-        style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-          
-        }}
-      >
-        <ImageBackground source={Gradient} style={{width: '100%', height: '100%'}}>
-          
-        <Text>Home Screen</Text>
-        <Button className="bg-gradient-to-r from-red-800 via-yellow-600 to-yellow-500" title="Sign-in" onPress={() => navigation.navigate("Signin")} />
-        <Button title="Sign-up" onPress={() => navigation.navigate("Signup")} />
-        </ImageBackground>
-      </View>
-    );
-  }
+  return (
+    <View style={styles.container}>
+      <ImageBackground source={Gradient} style={styles.background}>
+        <Image style={styles.image} source={Logo} />
+        
+        <Pressable
+          style={({ pressed }) => [
+            pressed ? styles.buttonPressed : styles.button,
+          ]}
+          title="Sign-in"
+          onPress={() => navigation.navigate("Signin")}
+        >
+          <Text style={styles.text}>Sign-in</Text>
+        </Pressable>
+        <Pressable
+          style={({ pressed }) => [
+            pressed ? styles.buttonPressed : styles.button,
+          ]}
+          onPress={() => navigation.navigate("Signup")}
+        >
+          <Text style={styles.text}>Sign-up</Text>
+        </Pressable>
+      </ImageBackground>
+    </View>
+  );
+}
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-    image: {
-      flex: 1,
-      justifyContent: "center"
-    },
-    text: {
-      color: "white",
-      fontSize: 42,
-      lineHeight: 84,
-      fontWeight: "bold",
-      textAlign: "center",
-      backgroundColor: "#000000c0"
-    }
-  });
-  
-export default HomeScreen
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  background: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  button: {
+    marginBottom: 20,
+    backgroundColor: "#F4F6F4",
+    borderRadius: 13,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    elevation: 3,
+    width: "70%",
+    height: "10%",
+  },
+  buttonPressed: {
+    marginBottom: 20,
+    backgroundColor: "#F4F6F4",
+    borderRadius: 13,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    elevation: 3,
+    width: "69%",
+    height: "9%",
+  },
+  image: {
+    justifyContent: "center",
+    width: "100%",
+    height: "25%",
+    marginBottom: 50,
+    resizeMode: "contain",
+  },
+  text: {
+    color: "#3B2314",
+    fontSize: 24,
+
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+});
+
+export default HomeScreen;

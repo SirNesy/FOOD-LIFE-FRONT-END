@@ -56,10 +56,10 @@ export default function App() {
     <UserProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen options={{headerShown: false}} name="Home" component={HomeScreen} />
           <Stack.Screen name="Signin" component={Signin} />
           <Stack.Screen name="Signup" component={Signup} />
-          <Stack.Screen options={{headerShown: false}}name="Drawers" component={DrawerNavigator} />
+          <Stack.Screen options={{headerShown: false}} name="Drawers" component={DrawerNavigator} />
           <Stack.Screen
             name="AddItem"
             options={({ navigation }) => ({
