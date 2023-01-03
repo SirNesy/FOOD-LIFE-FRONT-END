@@ -22,7 +22,6 @@ function RecipesPage({ navigation }) {
       <FlatList
         data={recipes}
         renderItem={(recipeData) => {
-          //   console.log(recipeData);
           return (
             <View style={styles.item}>
               <TouchableOpacity
@@ -42,9 +41,9 @@ function RecipesPage({ navigation }) {
           );
         }}
         keyExtractor={(item) => {
-          return item.recipeId;
+          return item.id;
         }}
-      ></FlatList>
+      />
     </>
   );
 }

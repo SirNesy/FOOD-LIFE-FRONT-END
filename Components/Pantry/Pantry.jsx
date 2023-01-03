@@ -29,7 +29,6 @@ const Pantry = ({ navigation }) => {
 
   return (
     <>
-      <Text>Pantry!</Text>
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (

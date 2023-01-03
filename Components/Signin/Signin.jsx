@@ -15,7 +15,7 @@ const Signin = ({ navigation }) => {
       .then((userCredential) => {
         setUser(userCredential.user.uid);
         Alert.alert("Success", `User ${userCredential.user.uid} was signed in`);
-        navigation.navigate("Pantry");
+        navigation.navigate("Drawers");
       })
       .catch((err) => {
         Alert.alert("Sign in failed", err.message);
