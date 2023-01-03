@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
   image: {
     justifyContent: "center",
-    width: "100%",
+    width: "75%",
     height: "25%",
     marginBottom: 50,
     resizeMode: "contain",
