@@ -45,6 +45,12 @@ const Pantry = ({ navigation }) => {
               navigation.navigate("AddItem");
             }}
           />
+          <Button
+            title={"Generate-Recipe"}
+            onPress={() => {
+              navigation.navigate("GenerateRecipe", { ingredients: pantry });
+            }}
+          />
           <FlatList
             data={pantry}
             renderItem={(itemData) => {
