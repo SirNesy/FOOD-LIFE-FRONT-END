@@ -12,6 +12,7 @@ import * as Device from "expo-device";
 import SingleRecipe from "./Components/SingleRecipe/SingleRecipe";
 import DrawerNavigator from "./Components/DrawerNavigators/DrawerNavigator";
 import HomeScreen from "./Components/HomeScreen/HomeScreen";
+import GenerateRecipe from "./Components/GenerateRecipe/GenerateRecipe";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -21,7 +22,6 @@ Notifications.setNotificationHandler({
 });
 
 const Stack = createNativeStackNavigator();
-
 
 export default function App() {
   const [headerVisible, setHeaderVisible] = React.useState(true);
@@ -59,7 +59,11 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Signin" component={Signin} />
           <Stack.Screen name="Signup" component={Signup} />
-          <Stack.Screen options={{headerShown: false}}name="Drawers" component={DrawerNavigator} />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Drawers"
+            component={DrawerNavigator}
+          />
           <Stack.Screen
             name="AddItem"
             options={({ navigation }) => ({
@@ -85,6 +89,7 @@ export default function App() {
           </Stack.Screen>
 
           <Stack.Screen name="SingleRecipe" component={SingleRecipe} />
+          <Stack.Screen name="GenerateRecipe" component={GenerateRecipe} />
           <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
         </Stack.Navigator>
       </NavigationContainer>
