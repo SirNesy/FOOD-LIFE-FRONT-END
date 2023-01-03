@@ -59,23 +59,39 @@ export const patchItem = (userId, itemId, itemName, amount, expiryDate) => {
 export const getSpoonacularRecipes = () => {
   return axios
     .get(
-      `https://api.spoonacular.com/food/search?apiKey=a9abf0d5fdeb4803b73a7c04f59572dd&number=10`
+      `https://api.spoonacular.com/food/search?apiKey=81726d20184e47e483fcb505e67dbd92&number=10`
     )
     .then((res) => {
       return res.data.searchResults[0].results;
     });
 };
+// Isa : a9abf0d5fdeb4803b73a7c04f59572dd
+
+export const getRecipeById = (recipeId) => {
+  return axios
+    .get(
+      `https://api.spoonacular.com/recipes/1697691/information?apiKey=81726d20184e47e483fcb505e67dbd92`
+    )
+    .then((res) => {
+      // console.log(res.data);
+      return res.data;
+    });
+};
+//One : 81726d20184e47e483fcb505e67dbd92
 
 export const getBarcode = (barcode) => {
-  console.log(barcode)
+  console.log(barcode);
   return axios
-    .get(`https://api.barcodelookup.com/v3/products?barcode=${barcode}&formatted=y&key=45de2ay9wm0nyi01nu41twy5dgrodq`)
+    .get(
+      `https://api.barcodelookup.com/v3/products?barcode=${barcode}&formatted=y&key=45de2ay9wm0nyi01nu41twy5dgrodq`
+    )
     .then((res) => {
-      console.log(JSON.parse(res.request._response).products[0].title)
-      return (JSON.parse(res.request._response).products[0].title)
-    }).catch(err => {
+      console.log(JSON.parse(res.request._response).products[0].title);
+      return JSON.parse(res.request._response).products[0].title;
+    })
+    .catch((err) => {
       if (err.code === 404) {
         return null;
       }
-    })
-}
+    });
+};
