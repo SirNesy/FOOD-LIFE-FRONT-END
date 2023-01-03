@@ -67,11 +67,9 @@ export const getSpoonacularRecipes = () => {
 };
 
 export const getBarcode = (barcode) => {
-  console.log(barcode)
   return axios
-    .get(`https://api.barcodelookup.com/v3/products?barcode=${barcode}&formatted=y&key=45de2ay9wm0nyi01nu41twy5dgrodq`)
+    .get(`https://api.barcodelookup.com/v3/products?barcode=${barcode}&formatted=y&key=2wfgf7tqqtfqu6lgp1ss5wd2iamhmp`)
     .then((res) => {
-      console.log(JSON.parse(res.request._response).products[0].title)
       return (JSON.parse(res.request._response).products[0].title)
     }).catch(err => {
       if (err.code === 404) {
