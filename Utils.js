@@ -65,6 +65,19 @@ export const getSpoonacularRecipes = () => {
       return res.data.searchResults[0].results;
     });
 };
+// Isa : a9abf0d5fdeb4803b73a7c04f59572dd
+
+export const getRecipeById = (recipeId) => {
+  return axios
+    .get(
+      `https://api.spoonacular.com/recipes/1697691/information?apiKey=81726d20184e47e483fcb505e67dbd92`
+    )
+    .then((res) => {
+      // console.log(res.data);
+      return res.data;
+    });
+};
+//One : 81726d20184e47e483fcb505e67dbd92
 
 export const getBarcode = (barcode) => {
   return axios
@@ -75,5 +88,5 @@ export const getBarcode = (barcode) => {
       if (err.code === 404) {
         return null;
       }
-    })
-}
+    });
+};
