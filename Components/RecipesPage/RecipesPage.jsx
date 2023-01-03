@@ -6,7 +6,6 @@ function RecipesPage() {
   const [recipes, setRecipes] = useState([]);
   useEffect(() => {
     getSpoonacularRecipes().then((res) => {
-      //   console.log(res);
       setRecipes(res);
     });
   }, []);
@@ -16,7 +15,6 @@ function RecipesPage() {
       <FlatList
         data={recipes}
         renderItem={(recipeData) => {
-          //   console.log(recipeData);
           return (
             <View style={styles.item}>
               <Image
@@ -28,9 +26,9 @@ function RecipesPage() {
           );
         }}
         keyExtractor={(item) => {
-          return item.recipeId;
+          return item.id;
         }}
-      ></FlatList>
+      />
     </>
   );
 }
