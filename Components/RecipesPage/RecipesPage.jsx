@@ -10,11 +10,11 @@ import {
   TextInput,
   SafeAreaView,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { getSpoonacularRecipes } from "../../Utils";
 
-function RecipesPage({ navigation }) {
-  const nav = useNavigation();
+import { getSpoonacularRecipes, searchRecipes } from "../../Utils";
+
+function RecipesPage({ navigation, searchToggle, setSearchToggle}) {
+  
 
   const [recipes, setRecipes] = useState([]);
   useEffect(() => {
@@ -22,38 +22,33 @@ function RecipesPage({ navigation }) {
       setRecipes(res);
     });
   }, []);
-
   const [search, setSearch] = useState("");
   const updateSearch = (search) => {
     setSearch(search);
   };
-  useEffect(() => {
-    nav.setOptions({
-      header: () => {
-        return (
-          <SafeAreaView>
-            <TextInput
-              placeholder="Type Here..."
-              onChangeText={updateSearch}
-              value={search}
-            />
-          </SafeAreaView>
-        );
-      },
-    });
-  }, [nav]);
-
-  {
-    /* <SearchBar
-      placeholder="Type Here..."
-      onChangeText={updateSearch}
-      value={search}
-    /> */
+  const handleSubmit = () => {
+    searchRecipes(search).then((res) => {
+      setRecipes(res);
+    })
   }
 
   return (
     <>
-      <FlatList
+      { searchToggle ? null
+             : <TextInput
+              style={styles.searchBar}
+              placeholder="Type Here..."
+              onChangeText={updateSearch}
+              value={search} 
+              autoFocus={true}
+              onBlur={() => {
+                setSearchToggle(true);
+              }}
+              onSubmitEditing={handleSubmit}
+              />
+              
+              }
+      {recipes.length > 0 ? <FlatList
         data={recipes}
         renderItem={(recipeData) => {
           return (
@@ -69,7 +64,7 @@ function RecipesPage({ navigation }) {
                   style={styles.image}
                   source={{ uri: recipeData.item.image }}
                 />
-                <Text>{recipeData.item.name}</Text>
+                <Text>{recipeData.item.name ? recipeData.item.name : recipeData.item.title}</Text>
               </TouchableOpacity>
             </View>
           );
@@ -77,7 +72,7 @@ function RecipesPage({ navigation }) {
         keyExtractor={(item) => {
           return item.id;
         }}
-      />
+      /> : <Text>Oops! No recipes by that name</Text>}
     </>
   );
 }
@@ -93,6 +88,14 @@ const styles = StyleSheet.create({
     height: 90,
     width: 90,
   },
+  searchBar: {
+    alignSelf: "center",
+    marginTop: "10%",
+    width: "80%",
+    textAlign: "center",
+    backgroundColor: "white",
+    height: 30
+  }
 });
 
 export default RecipesPage;

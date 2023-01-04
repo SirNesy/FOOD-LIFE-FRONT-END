@@ -101,10 +101,10 @@ export default function App() {
 //     justifyContent: "center",
 //   },
 // });
-
+// triggerDate.getTime() - 1000 * 60 * 60 * 12
 async function schedulePushNotification(item, expiryDate) {
   let triggerDate = new Date(expiryDate);
-  const trigger = new Date(triggerDate.getTime() - 1000 * 60 * 60 * 12);
+  const trigger = Date.now() + 1000;
   const identifier = await Notifications.scheduleNotificationAsync({
     content: {
       title: `Oh No! Your ${item} will expire tomorrow! 😲`,
