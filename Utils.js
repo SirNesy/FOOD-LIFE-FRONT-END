@@ -103,3 +103,17 @@ export const getBarcode = (barcode) => {
       }
     });
 };
+
+
+export const searchRecipes = (searchTerm) => {
+  return axios
+    .get(
+      `https://api.spoonacular.com/recipes/complexSearch?query=${searchTerm}apiKey=81726d20184e47e483fcb505e67dbd92&number=10`
+    )
+    .then((res) => {
+      console.log(res.data.results);
+      return res.data.results;
+    });
+};
+
+searchRecipes("pasta")
