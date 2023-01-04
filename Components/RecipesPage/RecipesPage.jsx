@@ -6,16 +6,50 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
+  SearchBar,
+  TextInput,
+  SafeAreaView,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { getSpoonacularRecipes } from "../../Utils";
 
 function RecipesPage({ navigation }) {
+  const nav = useNavigation();
+
   const [recipes, setRecipes] = useState([]);
   useEffect(() => {
     getSpoonacularRecipes().then((res) => {
       setRecipes(res);
     });
   }, []);
+
+  const [search, setSearch] = useState("");
+  const updateSearch = (search) => {
+    setSearch(search);
+  };
+  useEffect(() => {
+    nav.setOptions({
+      header: () => {
+        return (
+          <SafeAreaView>
+            <TextInput
+              placeholder="Type Here..."
+              onChangeText={updateSearch}
+              value={search}
+            />
+          </SafeAreaView>
+        );
+      },
+    });
+  }, [nav]);
+
+  {
+    /* <SearchBar
+      placeholder="Type Here..."
+      onChangeText={updateSearch}
+      value={search}
+    /> */
+  }
 
   return (
     <>
