@@ -1,14 +1,17 @@
 import React, { useContext, useState, useEffect } from "react";
-import { StyleSheet, Text, FlatList, View, Button,
+import {
+  StyleSheet,
+  Text,
+  FlatList,
+  View,
   ImageBackground,
   Pressable,
-  Image} from "react-native";
+} from "react-native";
 import { deleteItem, getItems } from "../../Utils";
 import { UserContext } from "../UserContext/UserContext";
 import Icon from "react-native-vector-icons/AntDesign";
 import { useIsFocused } from "@react-navigation/native";
 import Gradient from "../../assets/Gradient.png";
-import Logo from "../../assets/Logo.png";
 
 const Pantry = ({ navigation }) => {
   const { user } = useContext(UserContext);
@@ -35,57 +38,72 @@ const Pantry = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={Gradient} style={styles.background}>
-      {isLoading ? (
-        <Text>Loading...</Text>
-      ) : (
-        <>
-          <Button
-            title={"Add-Item"}
-            onPress={() => {
-              navigation.navigate("AddItem");
-            }}
-          />
-          <Button
-            title={"Generate-Recipe"}
-            onPress={() => {
-              navigation.navigate("GenerateRecipe", { ingredients: pantry });
-            }}
-          />
-          <FlatList
-            data={pantry}
-            renderItem={(itemData) => {
-              return (
-                <View style={styles.item}>
-                  <Text>Item Name: {itemData.item.itemName}</Text>
-                  <Text>Amount: {itemData.item.amount}</Text>
-                  <Text>Expiry Date: {itemData.item.expiryDate}</Text>
-                  <Icon.Button
-                    name="edit"
-                    backgroundColor="#3b5998"
-                    size={10}
-                    onPress={() => {
-                      navigation.navigate("AddItem", {
-                        item: itemData.item,
-                      });
-                    }}
-                  ></Icon.Button>
-                  <Icon.Button
-                    name="delete"
-                    backgroundColor="#3b5998"
-                    size={10}
-                    onPress={() => {
-                      handleDeleteItem(itemData.item.itemId);
-                    }}
-                  ></Icon.Button>
-                </View>
-              );
-            }}
-            keyExtractor={(item) => {
-              return item.itemId;
-            }}
-          />
-        </>
-      )}</ImageBackground>
+        {isLoading ? (
+          <Text>Loading...</Text>
+        ) : (
+          <View style={styles.container}>
+            <Pressable
+              style={({ pressed }) => [
+                pressed ? styles.buttonPressed : styles.button,
+              ]}
+              onPress={() => {
+                navigation.navigate("AddItem");
+              }}
+            >
+              <Text style={styles.text}>Add-Item</Text>
+            </Pressable>
+            <Pressable
+              style={({ pressed }) => [
+                pressed ? styles.buttonPressed : styles.button,
+              ]}
+              title={"Generate-Recipe"}
+              onPress={() => {
+                navigation.navigate("GenerateRecipe", { ingredients: pantry });
+              }}
+            >
+              <Text style={styles.text}>Generate-Recipe</Text>
+            </Pressable>
+            <FlatList
+              style={styles.item}
+              data={pantry}
+              renderItem={(itemData) => {
+                return (
+                  <View style={styles.list}>
+                    <View>
+                      <Text>ITEM NAME: {itemData.item.itemName}</Text>
+                      <Text>AMOUNT: {itemData.item.amount}</Text>
+                      <Text>EXPIRY: {itemData.item.expiryDate}</Text>
+                    </View>
+                    <View style={styles.listButtons}>
+                      <Icon.Button
+                        name="edit"
+                        style={styles.listButton}
+                        size={15}
+                        onPress={() => {
+                          navigation.navigate("AddItem", {
+                            item: itemData.item,
+                          });
+                        }}
+                      ></Icon.Button>
+                      <Icon.Button
+                        name="delete"
+                        style={styles.listButton}
+                        size={15}
+                        onPress={() => {
+                          handleDeleteItem(itemData.item.itemId);
+                        }}
+                      ></Icon.Button>
+                    </View>
+                  </View>
+                );
+              }}
+              keyExtractor={(item) => {
+                return item.itemId;
+              }}
+            />
+          </View>
+        )}
+      </ImageBackground>
     </View>
   );
 };
@@ -93,21 +111,9 @@ const Pantry = ({ navigation }) => {
 export default Pantry;
 
 const styles = StyleSheet.create({
-  item: {
-    height: 100,
-    margin: 30,
-    backgroundColor: "#fff",
-  },
-  input: {
-    height: 40,
-    width: "80%",
-    margin: 15,
-    backgroundColor: "#fff",
-    textAlign: "center",
-    borderRadius: 5,
-  },
   container: {
     flex: 1,
+    marginTop: 35,
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
@@ -119,41 +125,52 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    marginTop: 30,
+    marginTop: 20,
     backgroundColor: "#F4F6F4",
     borderRadius: 30,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 12,
+    paddingVertical: 8,
     paddingHorizontal: 32,
     elevation: 3,
-    width: "40%",
-    height: 56,
+    width: "60%",
+    height: 40,
   },
   buttonPressed: {
-    marginTop: 30,
+    marginTop: 20,
     backgroundColor: "#F4F6F4",
     borderRadius: 30,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 12,
+    paddingVertical: 8,
     paddingHorizontal: 32,
     elevation: 3,
-    width: "38%",
-    height: 48,
-  },
-  image: {
-    justifyContent: "center",
-    width: "75%",
-    height: "25%",
-    marginBottom: 20,
-    resizeMode: "contain",
+    width: "58%",
+    height: 35,
   },
   text: {
     color: "#3B2314",
     fontSize: 16,
-
     fontWeight: "bold",
     textAlign: "center",
+  },
+  item: {
+    height: 40,
+    width: "80%",
+  },
+  list: {
+    display: "flex",
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    borderRadius: 5,
+    margin: 5,
+  },
+  listButtons: {
+    flex: 1,
+    alignItems: "flex-end",
+    margin: 5,
+  },
+  listButton: {
+    backgroundColor: "#3b5998",
   },
 });

@@ -7,7 +7,6 @@ import HomeScreen from "../HomeScreen/HomeScreen";
 import Icon from "react-native-vector-icons/AntDesign";
 const Drawer = createDrawerNavigator();
 
-
 const DrawerNavigator = () => {
   const [searchToggle, setSearchToggle] = useState(true)
   return (
@@ -26,11 +25,19 @@ const DrawerNavigator = () => {
         searchToggle={searchToggle}
       />
     )}</Drawer.Screen>
-      <Drawer.Screen options={{headerShown:false}} name="Pantry" component={Pantry} />
-      <Drawer.Screen options={{headerShown:false, swipeEnabled:false}} name="Log Out" component={HomeScreen} />
+      
+      <Drawer.Screen
+        name="Pantry"
+        options={{ headerTransparent: true }}
+        component={Pantry}
+      />
+      <Drawer.Screen
+        options={{ headerShown: false, swipeEnabled: false }}
+        name="Log Out"
+        component={HomeScreen}
+      />
     </Drawer.Navigator>
-  )
-}
-
+  );
+};
 
 export default DrawerNavigator;
