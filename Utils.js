@@ -117,5 +117,3 @@ export const searchRecipes = (searchTerm) => {
       console.log(err)
     });
 };
-
-searchRecipes("pasta")

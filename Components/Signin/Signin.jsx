@@ -22,14 +22,31 @@ const Signin = ({ navigation }) => {
   const [password, setPassword] = useState("");
 
   const handleSignIn = () => {
-    signInWithEmailAndPassword(auth, email, password)
+    if (!email) {
+      Alert.alert("Sign in failed", "Please enter your Email Address");
+    } else if (!password) {
+      Alert.alert("Sign in failed", "Please enter your Password");
+    } else {
+      signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setUser(userCredential.user.uid);
         navigation.navigate("Drawers");
       })
       .catch((err) => {
-        Alert.alert("Sign in failed", err.message);
+        let message = "";
+        if (err.code === "auth/invalid-email") {
+          message = "Invalid Email"
+        } else if (err.code === "auth/wrong-password") {
+          message = "Incorrect Password"
+        } else if (err.code === "auth/user-not-found") {
+          message = "Email s Not Registered"
+        } else if (err.code === "auth/too-many-requests") {
+          message = "Too Many Attempts: Try Again in a Minute"
+        }
+        Alert.alert("Sign in failed", message);
       });
+    }
+    
   };
   return (
     <View style={styles.container}>
