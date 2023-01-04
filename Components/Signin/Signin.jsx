@@ -1,14 +1,13 @@
 import React, { useContext, useState } from "react";
 import {
   Alert,
-  Button,
   StyleSheet,
   Text,
   TextInput,
   View,
   ImageBackground,
   Pressable,
-  Image
+  Image,
 } from "react-native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebaseconfig";
@@ -35,7 +34,7 @@ const Signin = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={Gradient} style={styles.background}>
-      <Image style={styles.image} source={Logo} />
+        <Image style={styles.image} source={Logo} />
         <TextInput
           style={styles.input}
           value={email}
@@ -51,13 +50,15 @@ const Signin = ({ navigation }) => {
           onChangeText={(text) => setPassword(text)}
         />
         <Pressable
-        style={({ pressed }) => [
-          pressed ? styles.buttonPressed : styles.button,
-        ]}
+          style={({ pressed }) => [
+            pressed ? styles.buttonPressed : styles.button,
+          ]}
           onPress={() => {
             handleSignIn();
           }}
-        ><Text style={styles.text}>Sign In</Text></Pressable>
+        >
+          <Text style={styles.text}>Sign In</Text>
+        </Pressable>
       </ImageBackground>
     </View>
   );
@@ -120,7 +121,6 @@ const styles = StyleSheet.create({
   text: {
     color: "#3B2314",
     fontSize: 16,
-
     fontWeight: "bold",
     textAlign: "center",
   },
