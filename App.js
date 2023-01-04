@@ -14,6 +14,7 @@ import DrawerNavigator from "./Components/DrawerNavigators/DrawerNavigator";
 import HomeScreen from "./Components/HomeScreen/HomeScreen";
 import GenerateRecipe from "./Components/GenerateRecipe/GenerateRecipe";
 import { StyleSheet } from "react-native";
+import EditProfile from "./Components/EditProfile/EditProfile";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -90,6 +91,7 @@ export default function App() {
           <Stack.Screen name="SingleRecipe" component={SingleRecipe} />
           <Stack.Screen name="GenerateRecipe" component={GenerateRecipe} />
           <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
+          <Stack.Screen name="EditProfile" component={EditProfile} />
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>

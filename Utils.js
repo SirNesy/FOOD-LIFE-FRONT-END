@@ -22,6 +22,29 @@ export const postUser = ({
     });
 };
 
+export const patchUser = ({
+  firstName,
+  lastName,
+  bio,
+  userId
+}) => {
+  return myApi
+    .patch(`/users/${userId}`, {
+      firstName: firstName,
+      lastName: lastName,
+      bio: bio
+    })
+    .then((res) => {
+      return res.data.user;
+    });
+};
+
+export const getUser = (userId) => {
+  return myApi.get(`/users/${userId}`).then((res) => {
+    return res.data.user;
+  });
+};
+
 export const getItems = (userId) => {
   return myApi.get(`/users/${userId}/items`).then((res) => {
     return res.data.items;
