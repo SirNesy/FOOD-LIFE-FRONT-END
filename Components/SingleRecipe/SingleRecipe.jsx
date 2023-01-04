@@ -24,7 +24,7 @@ function SingleRecipe({ route }) {
     });
   }, []);
   const summary = { html: recipe.summary };
-
+  const instructions = { html: recipe.instructions };
   return loading ? (
     <Text>loading....</Text>
   ) : (
@@ -60,7 +60,8 @@ function SingleRecipe({ route }) {
           </View>
 
           <Text style={styles.instruction}>
-            Instruction : {recipe.instructions}
+            Instruction : 
+            <RenderHtml source={instructions} />
           </Text>
         </ScrollView>
       </ImageBackground>
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
     paddingBottom: 50,
   },
   scrollView: {
-    height: "60%",
+    height: "70%",
     width: "90%",
     margin: 20,
     alignSelf: "center",
