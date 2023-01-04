@@ -30,15 +30,19 @@ function SingleRecipe({ route }) {
   ) : (
     <View style={styles.container}>
       <ImageBackground source={Gradient} style={styles.background}>
-        <ScrollView>
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={styles.contentContainer}
+        >
           <Image
             style={styles.image}
             source={{ uri: recipe.image }}
             alt="recipe image"
           />
           <Text style={styles.title}>{recipe.title}</Text>
-          <Text style={styles.ingredients}> INGREDIENTS: </Text>
-          <View>
+
+          <View style={styles.inglist}>
+            <Text style={styles.ingredients}> INGREDIENTS: </Text>
             {recipe.extendedIngredients.map((ingredient) => {
               return (
                 <Text key={ingredient.id}>
@@ -48,12 +52,16 @@ function SingleRecipe({ route }) {
             })}
           </View>
 
-          <Text>
-            Summary:
-            <RenderHtml source={summary} />
-          </Text>
+          <View style={styles.summary}>
+            <Text style={styles.ingredients}>
+              SUMMARY:
+              <RenderHtml source={summary} />
+            </Text>
+          </View>
 
-          <Text>Instruction : {recipe.instructions}</Text>
+          <Text style={styles.instruction}>
+            Instruction : {recipe.instructions}
+          </Text>
         </ScrollView>
       </ImageBackground>
     </View>
@@ -63,9 +71,19 @@ function SingleRecipe({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
-    alignItems: "center",
+  },
+  contentContainer: {
     justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "lightgrey",
+    paddingBottom: 50,
+  },
+  scrollView: {
+    height: "60%",
+    width: "90%",
+    margin: 20,
+    alignSelf: "center",
+    padding: 20,
   },
 
   background: {
@@ -77,15 +95,28 @@ const styles = StyleSheet.create({
   image: {
     height: "30%",
     width: "65%",
-    margin: 70,
+    marginTop: 80,
     borderRadius: 5,
+    alignSelf: "center",
   },
   title: {
     fontWeight: "800",
     fontSize: 30,
   },
+  inglist: {
+    alignItems: "center",
+  },
   ingredients: {
-    fontWeight: 500,
+    fontWeight: "500",
+  },
+  summary: {
+    margin: 1,
+  },
+  scroll: {
+    height: "100%",
+  },
+  instruction: {
+    marginBottom: 10,
   },
 });
 
