@@ -71,7 +71,7 @@ function RecipesPage({ navigation, searchToggle, setSearchToggle }) {
                         />
                       </View>
                       <View style={styles.recipetitle}>
-                        <Text>
+                        <Text style={styles.recipetext}>
                           {recipeData.item.name
                             ? recipeData.item.name
                             : recipeData.item.title}
@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   image: {
     height: 90,
     width: 90,
+    margin: 5,
   },
   searchBar: {
     alignSelf: "center",
@@ -144,6 +145,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  recipetext: {
+    fontWeight: "700",
   },
 });
 

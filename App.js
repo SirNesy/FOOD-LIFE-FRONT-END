@@ -57,11 +57,27 @@ export default function App() {
   return (
     <UserProvider>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerTransparent: true}}>
-          <Stack.Screen options={{headerShown: false}} name="Home" component={HomeScreen} />
-          <Stack.Screen options={{headerTitle: ""}} name="Signin" component={Signin} />
-          <Stack.Screen options={{headerTitle: ""}} name="Signup" component={Signup} />
-          <Stack.Screen options={{headerShown: false}} name="Drawers" component={DrawerNavigator} />
+        <Stack.Navigator screenOptions={{ headerTransparent: true }}>
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Home"
+            component={HomeScreen}
+          />
+          <Stack.Screen
+            options={{ headerTitle: "" }}
+            name="Signin"
+            component={Signin}
+          />
+          <Stack.Screen
+            options={{ headerTitle: "" }}
+            name="Signup"
+            component={Signup}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Drawers"
+            component={DrawerNavigator}
+          />
           <Stack.Screen
             name="AddItem"
             options={({ navigation }) => ({
@@ -88,9 +104,21 @@ export default function App() {
             )}
           </Stack.Screen>
 
-          <Stack.Screen name="SingleRecipe" component={SingleRecipe} />
-          <Stack.Screen name="GenerateRecipe" component={GenerateRecipe} />
-          <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
+          <Stack.Screen
+            options={{ headerTitle: "" }}
+            name="SingleRecipe"
+            component={SingleRecipe}
+          />
+          <Stack.Screen
+            options={{ headerTitle: "" }}
+            name="GenerateRecipe"
+            component={GenerateRecipe}
+          />
+          <Stack.Screen
+            options={{ headerTitle: "" }}
+            name="BarcodeScanner"
+            component={BarcodeScanner}
+          />
           <Stack.Screen name="EditProfile" component={EditProfile} />
         </Stack.Navigator>
       </NavigationContainer>
@@ -101,7 +129,7 @@ export default function App() {
 const styles = StyleSheet.create({
   icon: {
     flex: 1,
-    backgroundColor: '#00000000',
+    backgroundColor: "#00000000",
     alignItems: "center",
   },
 });

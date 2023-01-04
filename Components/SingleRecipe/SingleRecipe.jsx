@@ -1,8 +1,16 @@
-import { Image, Text, View, StyleSheet, ScrollView } from "react-native";
+import {
+  Image,
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  ImageBackground,
+} from "react-native";
 import { getRecipeById } from "../../Utils";
 import React from "react";
 import { useState, useEffect } from "react";
 import RenderHtml from "react-native-render-html";
+import Gradient from "../../assets/Gradient.png";
 
 function SingleRecipe({ route }) {
   const [recipe, setRecipe] = useState({});
@@ -16,41 +24,68 @@ function SingleRecipe({ route }) {
     });
   }, []);
   const summary = { html: recipe.summary };
-  //   console.log(ingredientArray[0].name);
-  //   let ingredientArray = [...recipe.extendedIngredients];
 
   return loading ? (
     <Text>loading....</Text>
   ) : (
-    <ScrollView>
-      <Text>{recipe.title}</Text>
-      <Image
-        style={styles.image}
-        source={{ uri: recipe.image }}
-        alt="recipe image"
-      />
-      <Text> Ingredients: </Text>
-      {recipe.extendedIngredients.map((ingredient) => {
-        return (
-          <Text>
-            {ingredient.name} : {ingredient.amount} {ingredient.unit}
-          </Text>
-        );
-      })}
-      <Text>
-        Summary:
-        <RenderHtml source={summary} />
-      </Text>
+    <View style={styles.container}>
+      <ImageBackground source={Gradient} style={styles.background}>
+        <ScrollView>
+          <Image
+            style={styles.image}
+            source={{ uri: recipe.image }}
+            alt="recipe image"
+          />
+          <Text style={styles.title}>{recipe.title}</Text>
+          <Text style={styles.ingredients}> INGREDIENTS: </Text>
+          <View>
+            {recipe.extendedIngredients.map((ingredient) => {
+              return (
+                <Text key={ingredient.id}>
+                  {ingredient.name} : {ingredient.amount} {ingredient.unit}
+                </Text>
+              );
+            })}
+          </View>
 
-      <Text>Instruction : {recipe.instructions}</Text>
-    </ScrollView>
+          <Text>
+            Summary:
+            <RenderHtml source={summary} />
+          </Text>
+
+          <Text>Instruction : {recipe.instructions}</Text>
+        </ScrollView>
+      </ImageBackground>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  background: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   image: {
-    height: 90,
-    width: 90,
+    height: "30%",
+    width: "65%",
+    margin: 70,
+    borderRadius: 5,
+  },
+  title: {
+    fontWeight: "800",
+    fontSize: 30,
+  },
+  ingredients: {
+    fontWeight: 500,
   },
 });
 

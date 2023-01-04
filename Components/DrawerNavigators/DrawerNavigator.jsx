@@ -57,6 +57,7 @@ const DrawerNavigator = ({navigation}) => {
         options={{ headerTransparent: true }}
         component={Pantry}
       />
+
       <Drawer.Screen
         options={{ headerShown: false, swipeEnabled: false }}
         name="Log Out"
