@@ -27,7 +27,7 @@ const Profile = () => {
     <View>
         <Image style={styles.image} source={{uri: userData.profile_pic}}/>
       <Text>{userData.firstName + " " + userData.lastName}</Text>
-      <Text>{userData.bio ? userData.Bio : "Add a bio to tell us about yourself!"}</Text>
+      <Text>{userData.bio ? userData.bio : "Add a bio to tell us about yourself!"}</Text>
     </View>
   )
 }

@@ -82,7 +82,7 @@ export const patchItem = (userId, itemId, itemName, amount, expiryDate) => {
 export const getSpoonacularRecipes = () => {
   return axios
     .get(
-      `https://api.spoonacular.com/food/search?apiKey=81726d20184e47e483fcb505e67dbd92&number=10`
+      `https://api.spoonacular.com/food/search?apiKey=a9abf0d5fdeb4803b73a7c04f59572dd&number=10`
     )
     .then((res) => {
       return res.data.searchResults[0].results;
@@ -93,18 +93,18 @@ export const getSpoonacularRecipes = () => {
 export const getRecipeById = (recipeId) => {
   return axios
     .get(
-      `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=81726d20184e47e483fcb505e67dbd92`
+      `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=a9abf0d5fdeb4803b73a7c04f59572dd`
     )
     .then((res) => {
       return res.data;
     });
 };
-//One : 81726d20184e47e483fcb505e67dbd92
+//One : a9abf0d5fdeb4803b73a7c04f59572dd
 
 export const getRecipesByIngredient = (ingredients) => {
   return axios
     .get(
-      `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=15&apiKey=81726d20184e47e483fcb505e67dbd92`
+      `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=15&apiKey=a9abf0d5fdeb4803b73a7c04f59572dd`
     )
     .then((res) => {
       console.log(res.data);
@@ -131,7 +131,7 @@ export const getBarcode = (barcode) => {
 export const searchRecipes = (searchTerm) => {
   return axios
     .get(
-      `https://api.spoonacular.com/recipes/complexSearch?query=${searchTerm}&apiKey=81726d20184e47e483fcb505e67dbd92&number=100`
+      `https://api.spoonacular.com/recipes/complexSearch?query=${searchTerm}&apiKey=a9abf0d5fdeb4803b73a7c04f59572dd&number=100`
     )
     .then((res) => {
       console.log(res.data.results);
