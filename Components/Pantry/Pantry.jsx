@@ -41,7 +41,7 @@ const Pantry = ({ navigation }) => {
         {isLoading ? (
           <Text>Loading...</Text>
         ) : (
-          <View style={styles.container}>
+          <View style={styles.container2}>
             <Pressable
               style={({ pressed }) => [
                 pressed ? styles.buttonPressed : styles.button,
@@ -64,11 +64,11 @@ const Pantry = ({ navigation }) => {
               <Text style={styles.text}>Generate-Recipe</Text>
             </Pressable>
             <FlatList
-              style={styles.item}
+              style={styles.list}
               data={pantry}
               renderItem={(itemData) => {
                 return (
-                  <View style={styles.list}>
+                  <View style={styles.item}>
                     <View>
                       <Text>ITEM NAME: {itemData.item.itemName}</Text>
                       <Text>AMOUNT: {itemData.item.amount}</Text>
@@ -113,7 +113,13 @@ export default Pantry;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 35,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  container2: {
+    marginTop:"20%",
+    flex: 1,
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
@@ -154,16 +160,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-  item: {
+  list: {
     height: 40,
     width: "80%",
+    marginTop: 25,
   },
-  list: {
+  item: {
     display: "flex",
     flexDirection: "row",
     backgroundColor: "#fff",
     borderRadius: 5,
     margin: 5,
+    
   },
   listButtons: {
     flex: 1,

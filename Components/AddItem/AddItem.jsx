@@ -64,8 +64,6 @@ const AddItem = ({
           />
         ) : (
           <>
-            {!route.params ? <Text>Add Item!</Text> : <Text>Edit Item!</Text>}
-
             <TextInput
               style={styles.input}
               value={itemName}

@@ -13,6 +13,7 @@ import SingleRecipe from "./Components/SingleRecipe/SingleRecipe";
 import DrawerNavigator from "./Components/DrawerNavigators/DrawerNavigator";
 import HomeScreen from "./Components/HomeScreen/HomeScreen";
 import GenerateRecipe from "./Components/GenerateRecipe/GenerateRecipe";
+import { StyleSheet } from "react-native";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -63,11 +64,13 @@ export default function App() {
           <Stack.Screen
             name="AddItem"
             options={({ navigation }) => ({
+              headerTitle: "",
               headerShown: headerVisible,
               headerRight: () => (
                 <Icon.Button
+                  style={styles.icon}
                   name="camera"
-                  size={10}
+                  size={30}
                   onPress={() => {
                     navigation.navigate("BarcodeScanner");
                   }}
@@ -93,18 +96,18 @@ export default function App() {
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#fff",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-// });
+const styles = StyleSheet.create({
+  icon: {
+    flex: 1,
+    backgroundColor: '#00000000',
+    alignItems: "center",
+  },
+});
+
 // triggerDate.getTime() - 1000 * 60 * 60 * 12
 async function schedulePushNotification(item, expiryDate) {
   let triggerDate = new Date(expiryDate);
-  const trigger = Date.now() + 1000;
+  const trigger = new Date(triggerDate.getTime() - 1000 * 60 * 60 * 12);
   const identifier = await Notifications.scheduleNotificationAsync({
     content: {
       title: `Oh No! Your ${item} will expire tomorrow! 😲`,
