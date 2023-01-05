@@ -110,13 +110,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   imgPressable: {
-    height: 300,
-    width: 300,
-    marginTop: 50,
+    height: 200,
+    width: 200,
   },
   icon: {
     alignSelf: "flex-end",
     position: "absolute",
+    zIndex: 9999,
   },
   
   image: {
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   inputBio: {
-    height: "35%",
+    height: "25%",
     width: "80%",
     margin: 15,
     backgroundColor: "#fff",
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   button: {
-    marginTop: 30,
+    marginTop: 15,
     backgroundColor: "#F4F6F4",
     borderRadius: 30,
     alignItems: "center",

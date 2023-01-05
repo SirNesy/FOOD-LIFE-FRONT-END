@@ -46,7 +46,7 @@ function SingleRecipe({ route }) {
           <Text style={styles.title}>{recipe.title}</Text>
 
           <View style={styles.inglist}>
-            <Text style={styles.ingredients}> INGREDIENTS: </Text>
+            <Text style={styles.ingredients}> INGREDIENTS </Text>
             {recipe.extendedIngredients.map((ingredient) => {
               return (
                 <Text key={ingredient.id}>
@@ -57,14 +57,14 @@ function SingleRecipe({ route }) {
           </View>
 
           <View style={styles.summary}>
-            <Text style={styles.ingredients}>SUMMARY:</Text>
+            <Text style={styles.ingredients}>SUMMARY</Text>
             <RenderHtml
               source={summary}
               contentWidth={width}
               enableExperimentalMarginCollapsing={true}
             />
           </View>
-          <Text style={styles.instruction}>INSTRUCTIONS :</Text>
+          <Text style={styles.instruction}>INSTRUCTIONS </Text>
           <RenderHtml
             source={instructions}
             contentWidth={width}
@@ -100,30 +100,41 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    height: "30%",
-    width: "65%",
-    marginTop: 80,
-    borderRadius: 5,
+    height: "20%",
+    aspectRatio: 1,
+    marginTop: 120,
+    borderRadius: 10,
+    borderWidth:5,
+    borderColor: "#fff",
     alignSelf: "center",
   },
   title: {
+    marginTop: 15,
     fontWeight: "800",
     fontSize: 30,
   },
   inglist: {
+    marginTop: 15,
     alignItems: "center",
   },
   ingredients: {
+    marginBottom: 15,
     fontWeight: "500",
+    fontSize: 20,
   },
   summary: {
-    margin: 1,
+    marginTop: 15,
+    alignItems: "center",
+    
   },
   scroll: {
     height: "100%",
   },
   instruction: {
-    marginBottom: 10,
+    fontWeight: "500",
+    fontSize: 20,
+    marginTop: 15,
+    marginBottom: 15,
   },
 });
 

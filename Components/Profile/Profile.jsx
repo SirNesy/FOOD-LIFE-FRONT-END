@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
   container2: {
     justifyContent: "center",
     alignItems: "center",
+    paddingBottom: 200,
   },
   background: {
     flex: 1,

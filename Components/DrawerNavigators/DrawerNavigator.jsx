@@ -6,12 +6,22 @@ import RecipesPage from "../RecipesPage/RecipesPage";
 import HomeScreen from "../HomeScreen/HomeScreen";
 import Icon from "react-native-vector-icons/Feather";
 import Profile from "../Profile/Profile";
+import { FlipInEasyX } from "react-native-reanimated";
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = ({navigation}) => {
   const [searchToggle, setSearchToggle] = useState(true);
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator  drawerContentOptions={{
+      activeTintColor: "red"
+    }}
+    screenOptions={{
+      drawerLabelStyle: {color: "white"},
+      drawerStyle: {
+      backgroundColor: '#281F33f0',
+      width: 240,
+
+    },}} >
       <Drawer.Screen
         options={{
           headerTransparent: true,
@@ -29,6 +39,7 @@ const DrawerNavigator = ({navigation}) => {
           headerTitle: "",
           headerShown: searchToggle,
         }}
+        
         name="RecipesPage"
       >
         {(props) => (
@@ -42,7 +53,7 @@ const DrawerNavigator = ({navigation}) => {
       <Drawer.Screen
         name="My Profile"
         
-        options={{ headerTransparent: true, headerRight: () => (
+        options={{ headerTitle: "", headerTransparent: true, headerRight: () => (
           <Icon.Button
             iconStyle={styles.icon}
             name="edit-2"
@@ -57,12 +68,12 @@ const DrawerNavigator = ({navigation}) => {
       />
       <Drawer.Screen
         name="Pantry"
-        options={{ headerTransparent: true }}
+        options={{ headerTitle: "", headerTransparent: true }}
         component={Pantry}
       />
 
       <Drawer.Screen
-        options={{ headerShown: false, swipeEnabled: false }}
+        options={{ drawerLabelStyle: {color: "red", marginTop: 450}, headerShown: false, swipeEnabled: false }}
         name="Log Out"
         component={HomeScreen}
       />

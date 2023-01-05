@@ -88,6 +88,8 @@ export default function App() {
                   style={styles.icon}
                   name="camera"
                   size={30}
+                  backgroundColor={"#00000000"}
+                  iconStyle={{color:"#000"}}
                   onPress={() => {
                     navigation.navigate("BarcodeScanner");
                   }}

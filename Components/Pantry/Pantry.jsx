@@ -69,7 +69,7 @@ const Pantry = ({ navigation }) => {
               renderItem={(itemData) => {
                 return (
                   <View style={styles.item}>
-                    <View>
+                    <View style={styles.itemText}>
                       <Text>ITEM NAME: {itemData.item.itemName}</Text>
                       <Text>AMOUNT: {itemData.item.amount}</Text>
                       <Text>EXPIRY: {itemData.item.expiryDate}</Text>
@@ -79,6 +79,8 @@ const Pantry = ({ navigation }) => {
                         name="edit"
                         style={styles.listButton}
                         size={15}
+                        backgroundColor={"#00000000"}
+                        iconStyle={{color:"#000"}}
                         onPress={() => {
                           navigation.navigate("AddItem", {
                             item: itemData.item,
@@ -89,6 +91,8 @@ const Pantry = ({ navigation }) => {
                         name="delete"
                         style={styles.listButton}
                         size={15}
+                        backgroundColor={"#00000000"}
+                        iconStyle={{color:"#000"}}
                         onPress={() => {
                           handleDeleteItem(itemData.item.itemId);
                         }}
@@ -178,7 +182,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     margin: 5,
   },
-  listButton: {
-    backgroundColor: "#3b5998",
-  },
+  itemText: {
+    padding: 7.5,
+  }
 });

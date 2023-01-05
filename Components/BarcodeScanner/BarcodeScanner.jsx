@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, Alert } from "react-native";
+import { Text, View, StyleSheet, Button, Alert, ImageBackground } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { getBarcode } from "../../Utils";
-
+import Gradient from "../../assets/Gradient.png";
 const BarcodeScanner = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
@@ -34,6 +34,7 @@ const BarcodeScanner = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <ImageBackground source={Gradient} style={styles.background}>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
@@ -41,6 +42,7 @@ const BarcodeScanner = ({ navigation }) => {
       {scanned && (
         <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
       )}
+      </ImageBackground>
     </View>
   );
 };
@@ -48,9 +50,14 @@ const BarcodeScanner = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  background: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center"
   },
 });
 
