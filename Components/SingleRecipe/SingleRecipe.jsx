@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   ImageBackground,
+  useWindowDimensions,
 } from "react-native";
 import { getRecipeById } from "../../Utils";
 import React from "react";
@@ -15,6 +16,7 @@ import Gradient from "../../assets/Gradient.png";
 function SingleRecipe({ route }) {
   const [recipe, setRecipe] = useState({});
   const [loading, setIsLoading] = useState(true);
+  const { width } = useWindowDimensions();
 
   let singleRecipeId = route.params.singleRecipeId;
   useEffect(() => {
@@ -23,8 +25,10 @@ function SingleRecipe({ route }) {
       setIsLoading(false);
     });
   }, []);
+
   const summary = { html: recipe.summary };
   const instructions = { html: recipe.instructions };
+
   return loading ? (
     <Text>loading....</Text>
   ) : (
@@ -53,16 +57,19 @@ function SingleRecipe({ route }) {
           </View>
 
           <View style={styles.summary}>
-            <Text style={styles.ingredients}>
-              SUMMARY:
-              <RenderHtml source={summary} />
-            </Text>
+            <Text style={styles.ingredients}>SUMMARY:</Text>
+            <RenderHtml
+              source={summary}
+              contentWidth={width}
+              enableExperimentalMarginCollapsing={true}
+            />
           </View>
-
-          <Text style={styles.instruction}>
-            Instruction : 
-            <RenderHtml source={instructions} />
-          </Text>
+          <Text style={styles.instruction}>INSTRUCTIONS :</Text>
+          <RenderHtml
+            source={instructions}
+            contentWidth={width}
+            enableExperimentalMarginCollapsing={true}
+          />
         </ScrollView>
       </ImageBackground>
     </View>
@@ -76,8 +83,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "lightgrey",
-    paddingBottom: 50,
+    paddingBottom: 200,
   },
   scrollView: {
     height: "70%",
