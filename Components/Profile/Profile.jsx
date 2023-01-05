@@ -18,40 +18,51 @@ const Profile = ({ navigation }) => {
   useFocusEffect(
     React.useCallback(() => {
       setIsLoading(true);
-      setTimeout(()=>{getUser(user).then((res) => { 
-        console.log(res)
-        if (res.profile_pic) {
-          getDownloadURL(pathReference).then((url) => {
-          res.profile_pic = url;
-          setUserData(res);
-           setIsLoading(false);
+      setTimeout(() => {
+        getUser(user).then((res) => {
+          if (res.profile_pic) {
+            getDownloadURL(pathReference).then((url) => {
+              res.profile_pic = url;
+              setUserData(res);
+              setIsLoading(false);
+            });
+          } else {
+            setUserData(res);
+            setIsLoading(false);
+          }
         });
-        } else {
-          
-          setUserData(res);
-          setIsLoading(false);
-        }
-        
-      });}, 500)
-      
+      }, 500);
     }, [])
   );
 
-  return ( 
+  return (
     <View style={styles.container}>
       <ImageBackground source={Gradient} style={styles.background}>
-      {loading ? (
-    <Text>loading....</Text>
-  ) : (
-        <ScrollView showsVerticalScrollIndicator = {false} contentContainerStyle={styles.container2}>
-        {userData.profile_pic ? <Image style={styles.image} source={{ uri: userData.profile_pic }} /> : <Image style={styles.image} source={AddPhoto} />}
-        <Text style={styles.nameText}>
-          {userData.firstName + " " + userData.lastName}
-        </Text>
-        <Text style={styles.bioText}>
-          {userData.bio ? userData.bio : "Add a bio to tell us about yourself!"}
-        </Text>
-        </ScrollView>)}
+        {loading ? (
+          <Text>loading....</Text>
+        ) : (
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.container2}
+          >
+            {userData.profile_pic ? (
+              <Image
+                style={styles.image}
+                source={{ uri: userData.profile_pic }}
+              />
+            ) : (
+              <Image style={styles.image} source={AddPhoto} />
+            )}
+            <Text style={styles.nameText}>
+              {userData.firstName + " " + userData.lastName}
+            </Text>
+            <Text style={styles.bioText}>
+              {userData.bio
+                ? userData.bio
+                : "Add a bio to tell us about yourself!"}
+            </Text>
+          </ScrollView>
+        )}
       </ImageBackground>
     </View>
   );
@@ -81,8 +92,7 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderColor: "white",
     borderRadius: 150,
-    marginTop: "50%"
-    
+    marginTop: "50%",
   },
   nameText: {
     height: 40,

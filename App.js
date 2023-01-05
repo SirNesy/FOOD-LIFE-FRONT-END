@@ -13,8 +13,11 @@ import SingleRecipe from "./Components/SingleRecipe/SingleRecipe";
 import DrawerNavigator from "./Components/DrawerNavigators/DrawerNavigator";
 import HomeScreen from "./Components/HomeScreen/HomeScreen";
 import GenerateRecipe from "./Components/GenerateRecipe/GenerateRecipe";
-import { StyleSheet } from "react-native";
+import { StyleSheet, LogBox } from "react-native";
 import EditProfile from "./Components/EditProfile/EditProfile";
+
+LogBox.ignoreAllLogs();
+
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -43,9 +46,7 @@ export default function App() {
       });
 
     responseListener.current =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
-      });
+      Notifications.addNotificationResponseReceivedListener((response) => {});
 
     return () => {
       Notifications.removeNotificationSubscription(
@@ -89,7 +90,7 @@ export default function App() {
                   name="camera"
                   size={30}
                   backgroundColor={"#00000000"}
-                  iconStyle={{color:"#000"}}
+                  iconStyle={{ color: "#000" }}
                   onPress={() => {
                     navigation.navigate("BarcodeScanner");
                   }}
@@ -121,7 +122,11 @@ export default function App() {
             name="BarcodeScanner"
             component={BarcodeScanner}
           />
-          <Stack.Screen options={{ headerTitle: "" }} name="EditProfile" component={EditProfile} />
+          <Stack.Screen
+            options={{ headerTitle: "" }}
+            name="EditProfile"
+            component={EditProfile}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>
@@ -136,7 +141,6 @@ const styles = StyleSheet.create({
   },
 });
 
-// triggerDate.getTime() - 1000 * 60 * 60 * 12
 async function schedulePushNotification(item, expiryDate) {
   let triggerDate = new Date(expiryDate);
   const trigger = new Date(triggerDate.getTime() - 1000 * 60 * 60 * 12);
@@ -175,7 +179,6 @@ async function registerForPushNotificationsAsync() {
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
   } else {
     alert("Must use physical device for Push Notifications");
   }
