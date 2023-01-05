@@ -140,14 +140,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
+// new Date(triggerDate.getTime() - 1000 * 60 * 60 * 12);
 async function schedulePushNotification(item, expiryDate) {
   let triggerDate = new Date(expiryDate);
-  const trigger = new Date(triggerDate.getTime() - 1000 * 60 * 60 * 12);
+  const trigger = Date.now() + 1000;
   const identifier = await Notifications.scheduleNotificationAsync({
     content: {
       title: `Oh No! Your ${item} will expire tomorrow! 😲`,
-      body: `Here are 10 recipes that include ${item}`,
+      body: `Why not find a ${item} recipe using our Recipe Generator!`,
       data: { data: "goes here" },
     },
     trigger,

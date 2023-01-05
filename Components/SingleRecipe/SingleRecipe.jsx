@@ -51,7 +51,7 @@ function SingleRecipe({ route }) {
             <Text style={styles.ingredients}> INGREDIENTS </Text>
             {recipe.extendedIngredients.map((ingredient) => {
               return (
-                <Text key={ingredient.id}>
+                <Text key={`${ingredient.id}${ingredient.name}`}>
                   {ingredient.name} : {ingredient.amount} {ingredient.unit}
                 </Text>
               );

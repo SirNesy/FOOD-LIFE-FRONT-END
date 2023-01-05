@@ -30,6 +30,9 @@ const AddItem = ({
   const [expiryDate, setExpiryDate] = useState(
     !route.params ? null : route.params.item.expiryDate
   );
+  const [itemId, setItemId] = useState(
+    !route.params ? null : route.params.item.itemId
+  );
 
   const handleAddItem = () => {
     postItem(user, itemName, amount, expiryDate).then(async () => {
@@ -96,13 +99,13 @@ const AddItem = ({
                 pressed ? styles.buttonPressed : styles.button,
               ]}
               onPress={() => {
-                !route.params
+                !itemId
                   ? handleAddItem()
-                  : handleEditItem(route.params.item.itemId);
+                  : handleEditItem(itemId);
               }}
             >
               <Text style={styles.text}>
-                {!route.params ? "Add Item" : "Edit Item"}
+                { !itemId ? "Add Item" : "Edit Item"}
               </Text>
             </Pressable>
           </>
