@@ -119,7 +119,7 @@ export default function App() {
             name="BarcodeScanner"
             component={BarcodeScanner}
           />
-          <Stack.Screen name="EditProfile" component={EditProfile} />
+          <Stack.Screen options={{ headerTitle: "" }} name="EditProfile" component={EditProfile} />
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>

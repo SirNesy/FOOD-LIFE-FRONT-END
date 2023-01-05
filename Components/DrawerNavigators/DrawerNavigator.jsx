@@ -4,7 +4,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import Pantry from "../Pantry/Pantry";
 import RecipesPage from "../RecipesPage/RecipesPage";
 import HomeScreen from "../HomeScreen/HomeScreen";
-import Icon from "react-native-vector-icons/AntDesign";
+import Icon from "react-native-vector-icons/Feather";
 import Profile from "../Profile/Profile";
 const Drawer = createDrawerNavigator();
 
@@ -17,7 +17,9 @@ const DrawerNavigator = ({navigation}) => {
           headerTransparent: true,
           headerRight: () => (
             <Icon.Button
-              name="search1"
+            iconStyle={styles.icon}
+            backgroundColor={"#00000000"}
+              name="search"
               size={20}
               onPress={() => {
                 setSearchToggle(false);
@@ -42,9 +44,10 @@ const DrawerNavigator = ({navigation}) => {
         
         options={{ headerTransparent: true, headerRight: () => (
           <Icon.Button
-            style={styles.icon}
-            name="edit"
-            size={30}
+            iconStyle={styles.icon}
+            name="edit-2"
+            size={20}
+            backgroundColor={"#00000000"}
             onPress={() => {
               navigation.navigate("EditProfile");
             }}
@@ -68,9 +71,7 @@ const DrawerNavigator = ({navigation}) => {
 };
 const styles = StyleSheet.create({
   icon: {
-    flex: 1,
-    backgroundColor: '#00000000',
-    alignItems: "center",
+    color: "#000"
   },
 });
 

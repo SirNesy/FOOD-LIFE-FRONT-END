@@ -1,72 +1,175 @@
-import { View, Text, TextInput, Pressable, Button, Image} from "react-native";
-import React, { useContext, useState } from "react";
+import { Image, View, Text, TextInput, Pressable, Button, StyleSheet, ImageBackground} from "react-native";
+import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../UserContext/UserContext";
-import { patchUser } from "../../Utils";
+import { getUser, patchUser } from "../../Utils";
 import * as ImagePicker from 'expo-image-picker';
-import { getStorage, ref, uploadBytes, putFile} from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
+import Gradient from "../../assets/Gradient.png";
+import Icon from "react-native-vector-icons/Feather";
 
-const EditProfile = () => {
+const EditProfile = ({navigation}) => {
+  const storage = getStorage();
   const { user } = useContext(UserContext);
+  const [image, setImage] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [bio, setBio] = useState("");
-  const [image, setImage] = useState(null);
-    const storage = getStorage();
-    const storageRef = ref(storage, `/${user}.jpg`)
+  const [imageBlob, setImageBlob] = useState(null);
 
+  useEffect(() => {
+    const pathReference = ref(storage, `/${user}.jpg`);
+      getDownloadURL(pathReference).then(url => {
+          console.log(url)
+          setImage(url)
+      }
+    )
+  }, [])
+  
+    
+    const storageRef = ref(storage, `/${user}.jpg`)
     const handleSubmit = () => {
         patchUser({firstName, lastName, bio, userId: user});
-        uploadBytes(storageRef, image).then(snapshot => {
+        if(imageBlob) {
+          uploadBytes(storageRef, imageBlob).then(snapshot => {
             console.log("uploaded a file!")
-        })
+          })
+        }
+        
+        navigation.navigate("My Profile");
     }
     const pickImage = async () => {
         // No permissions request is necessary for launching the image library
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.All,
           allowsEditing: true,
-          aspect: [4, 3],
+          aspect: [1, 1],
           quality: 1,
         });
     
         console.log(result);
     
         if (!result.canceled) {
-          const response = await fetch(result.assets[0].uri)
+          setImage(result.assets[0].uri)
+          const response = await fetch(result.assets[0].uri);
           const blob = await response.blob();
-          setImage(blob);
+          setImageBlob(blob);
         }
-        
       };
 
   return (
-    <View>
-      <Text>EditProfile</Text>
-      <TextInput value={firstName}
+    <View style={styles.container}>
+      <ImageBackground source={Gradient} style={styles.background}>
+      
+      <Pressable style={styles.imgPressable}
+          onPress={pickImage}
+        >
+          <Icon style={styles.icon} name="edit-2" color="#FFF" size={40} />
+          {image && <Image source={{ uri: image }} style={styles.image} />}
+          
+        </Pressable>
+      <TextInput style={styles.input} value={firstName}
           placeholder={"First Name"}
           onChangeText={(text) => setFirstName(text)}
           autoCapitalize={"none"}></TextInput>
-      <TextInput value={lastName}
+      <TextInput style={styles.input} value={lastName}
           placeholder={"Last Name"}
           onChangeText={(text) => setLastName(text)}
           autoCapitalize={"none"}></TextInput>
-      <TextInput value={bio}
+      <TextInput style={styles.inputBio} value={bio}
           placeholder={"Tell us about yourself!"}
           onChangeText={(text) => setBio(text)}
           autoCapitalize={"none"}></TextInput>
-          <Button title="Pick an image from camera roll" onPress={pickImage} />
-      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-        <Pressable
-          
+        <Pressable style={({ pressed }) => [
+            pressed ? styles.buttonPressed : styles.button,
+          ]}
           onPress={() => {
             handleSubmit();
           }}
         >
           <Text>Submit</Text>
         </Pressable>
-        {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+        </ImageBackground>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
+    
+  },
+  background: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  imgPressable: {
+    height: 300,
+    width: 300,
+    marginTop: 50,
+  },
+  icon: {
+    alignSelf: "flex-end",
+    position: "absolute",
+  },
+  
+  image: {
+    height: "90%",
+    width: "90%",
+    borderWidth: 5,
+    borderColor: "white",
+    borderRadius: 150,
+    alignSelf: "center",
+  },
+  input: {
+    height: 40,
+    width: "80%",
+    margin: 15,
+    backgroundColor: "#fff",
+    textAlign: "left",
+    paddingLeft: 10,
+    borderRadius: 5,
+  },
+  inputBio: {
+    height: "35%",
+    width: "80%",
+    margin: 15,
+    backgroundColor: "#fff",
+    justifyContent: "flex-start",
+    textAlignVertical: "top",
+    borderRadius: 10,
+    padding: 10,
+  },
+  button: {
+    marginTop: 30,
+    backgroundColor: "#F4F6F4",
+    borderRadius: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    elevation: 3,
+    width: "40%",
+    height: 56,
+  },
+  buttonPressed: {
+    marginTop: 30,
+    backgroundColor: "#F4F6F4",
+    borderRadius: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    elevation: 3,
+    width: "38%",
+    height: 48,
+  },
+});
 
 export default EditProfile;
