@@ -38,7 +38,7 @@ export default function Signup({ navigation }) {
             "Success!",
             `User ${firstName + lastName} was successfully created`
           );
-          navigation.navigate("Drawers");
+          navigation.navigate("Home");
         })
         .catch((err) => {
           if (err.code === "auth/invalid-email") {
