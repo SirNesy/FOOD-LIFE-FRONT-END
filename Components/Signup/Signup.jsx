@@ -41,7 +41,6 @@ export default function Signup({ navigation }) {
           navigation.navigate("Drawers");
         })
         .catch((err) => {
-          console.log(err.code);
           if (err.code === "auth/invalid-email") {
             message = "Invalid Email";
           } else if (err.code === "auth/weak-password") {

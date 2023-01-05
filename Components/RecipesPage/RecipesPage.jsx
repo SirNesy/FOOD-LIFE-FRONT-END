@@ -52,6 +52,7 @@ function RecipesPage({ navigation, searchToggle, setSearchToggle }) {
         <View style={styles.container2}>
           {recipes.length > 0 ? (
             <FlatList
+            showsVerticalScrollIndicator = {false}
               style={styles.list}
               data={recipes}
               renderItem={(recipeData) => {
@@ -82,7 +83,7 @@ function RecipesPage({ navigation, searchToggle, setSearchToggle }) {
                 );
               }}
               keyExtractor={(item) => {
-                return item.id;
+                return `${item.id}${item.name}`;
               }}
             />
           ) : (
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   container2: {
-    marginTop: "20%",
+    marginTop: "10%",
     flex: 1,
     width: "100%",
     alignItems: "center",

@@ -26,13 +26,15 @@ export const patchUser = ({
   firstName,
   lastName,
   bio,
+  image,
   userId
 }) => {
   return myApi
     .patch(`/users/${userId}`, {
       firstName: firstName,
       lastName: lastName,
-      bio: bio
+      bio: bio,
+      profile_pic: image
     })
     .then((res) => {
       return res.data.user;
@@ -82,32 +84,32 @@ export const patchItem = (userId, itemId, itemName, amount, expiryDate) => {
 export const getSpoonacularRecipes = () => {
   return axios
     .get(
-      `https://api.spoonacular.com/food/search?apiKey=b4e5d93ee4364a2f84c5096aff0247d7&number=10`
+      `https://api.spoonacular.com/recipes/random?apiKey=81726d20184e47e483fcb505e67dbd92&number=20`
     )
     .then((res) => {
-      return res.data.searchResults[0].results;
+      return res.data.recipes;
     });
 };
-// Isa : b4e5d93ee4364a2f84c5096aff0247d7
+
 
 export const getRecipeById = (recipeId) => {
   return axios
     .get(
-      `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=b4e5d93ee4364a2f84c5096aff0247d7`
+      `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=81726d20184e47e483fcb505e67dbd92`
     )
     .then((res) => {
       return res.data;
     });
 };
-//One : b4e5d93ee4364a2f84c5096aff0247d7
+
 
 export const getRecipesByIngredient = (ingredients) => {
   return axios
     .get(
-      `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=15&apiKey=b4e5d93ee4364a2f84c5096aff0247d7`
+      `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=15&apiKey=81726d20184e47e483fcb505e67dbd92`
     )
     .then((res) => {
-      console.log(res.data);
+      
       return res.data;
     });
 };
@@ -131,12 +133,16 @@ export const getBarcode = (barcode) => {
 export const searchRecipes = (searchTerm) => {
   return axios
     .get(
-      `https://api.spoonacular.com/recipes/complexSearch?query=${searchTerm}&apiKey=b4e5d93ee4364a2f84c5096aff0247d7&number=100`
+      `https://api.spoonacular.com/recipes/complexSearch?query=${searchTerm}&apiKey=81726d20184e47e483fcb505e67dbd92&number=100`
     )
     .then((res) => {
-      console.log(res.data.results);
+      
       return res.data.results;
     }).catch(err => {
       console.log(err)
     });
 };
+
+//razin b4e5d93ee4364a2f84c5096aff0247d7 x
+//isaac a9abf0d5fdeb4803b73a7c04f59572dd
+//onesi 81726d20184e47e483fcb505e67dbd92

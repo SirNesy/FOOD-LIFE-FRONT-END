@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Pantry from "../Pantry/Pantry";
 import RecipesPage from "../RecipesPage/RecipesPage";
 import HomeScreen from "../HomeScreen/HomeScreen";
 import Icon from "react-native-vector-icons/Feather";
 import Profile from "../Profile/Profile";
-import { FlipInEasyX } from "react-native-reanimated";
+
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = ({navigation}) => {
   const [searchToggle, setSearchToggle] = useState(true);
   return (
-    <Drawer.Navigator  drawerContentOptions={{
-      activeTintColor: "red"
-    }}
+    <Drawer.Navigator  
     screenOptions={{
       drawerLabelStyle: {color: "white"},
       drawerStyle: {

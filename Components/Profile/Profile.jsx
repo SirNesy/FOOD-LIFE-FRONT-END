@@ -5,38 +5,53 @@ import { UserContext } from "../UserContext/UserContext";
 import { getUser } from "../../Utils";
 import { useFocusEffect } from "@react-navigation/native";
 import Gradient from "../../assets/Gradient.png";
+import AddPhoto from "../../assets/AddPhoto.png";
 import { ScrollView } from "react-native-gesture-handler";
 
 const Profile = ({ navigation }) => {
   const { user } = useContext(UserContext);
   const storage = getStorage();
   const pathReference = ref(storage, `/${user}.jpg`);
+  const [loading, setIsLoading] = useState(true);
 
   const [userData, setUserData] = useState({});
   useFocusEffect(
     React.useCallback(() => {
-      getUser(user).then((res) => {
-        getDownloadURL(pathReference).then((url) => {
+      setIsLoading(true);
+      setTimeout(()=>{getUser(user).then((res) => { 
+        console.log(res)
+        if (res.profile_pic) {
+          getDownloadURL(pathReference).then((url) => {
           res.profile_pic = url;
-          console.log(res);
           setUserData(res);
+           setIsLoading(false);
         });
-      });
+        } else {
+          
+          setUserData(res);
+          setIsLoading(false);
+        }
+        
+      });}, 500)
+      
     }, [])
   );
 
-  return (
+  return ( 
     <View style={styles.container}>
       <ImageBackground source={Gradient} style={styles.background}>
-        <ScrollView contentContainerStyle={styles.container2}>
-        <Image style={styles.image} source={{ uri: userData.profile_pic }} />
+      {loading ? (
+    <Text>loading....</Text>
+  ) : (
+        <ScrollView showsVerticalScrollIndicator = {false} contentContainerStyle={styles.container2}>
+        {userData.profile_pic ? <Image style={styles.image} source={{ uri: userData.profile_pic }} /> : <Image style={styles.image} source={AddPhoto} />}
         <Text style={styles.nameText}>
           {userData.firstName + " " + userData.lastName}
         </Text>
         <Text style={styles.bioText}>
           {userData.bio ? userData.bio : "Add a bio to tell us about yourself!"}
         </Text>
-        </ScrollView>
+        </ScrollView>)}
       </ImageBackground>
     </View>
   );
@@ -44,21 +59,24 @@ const Profile = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
   },
   container2: {
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
     paddingBottom: 200,
   },
   background: {
+    width: "100%",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
   image: {
-    height: "25%",
+    height: 200,
     aspectRatio: 1,
     borderWidth: 5,
     borderColor: "white",

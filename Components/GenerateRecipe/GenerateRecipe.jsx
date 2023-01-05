@@ -36,12 +36,13 @@ const GenerateRecipe = ({ navigation, route }) => {
     });
   }, []);
 
-  return loading ? (
+  return (
+    <View style={styles.container}>
+      <ImageBackground source={Gradient} style={styles.background}>{loading ? (
     <Text> loading...</Text>
   ) : (
-    <View style={styles.container}>
-      <ImageBackground source={Gradient} style={styles.background}>
         <FlatList
+        showsVerticalScrollIndicator = {false}
           style={styles.list}
           data={recipes}
           renderItem={(recipeData) => {
@@ -72,7 +73,7 @@ const GenerateRecipe = ({ navigation, route }) => {
           keyExtractor={(item) => {
             return item.id;
           }}
-        />
+        />)}
       </ImageBackground>
     </View>
   );

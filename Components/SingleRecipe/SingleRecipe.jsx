@@ -29,12 +29,14 @@ function SingleRecipe({ route }) {
   const summary = { html: recipe.summary };
   const instructions = { html: recipe.instructions };
 
-  return loading ? (
-    <Text>loading....</Text>
-  ) : (
+  return (
     <View style={styles.container}>
       <ImageBackground source={Gradient} style={styles.background}>
+      {loading ? (
+    <Text>loading....</Text>
+  ) : (
         <ScrollView
+        showsVerticalScrollIndicator = {false}
           style={styles.scrollView}
           contentContainerStyle={styles.contentContainer}
         >
@@ -70,7 +72,7 @@ function SingleRecipe({ route }) {
             contentWidth={width}
             enableExperimentalMarginCollapsing={true}
           />
-        </ScrollView>
+        </ScrollView>)}
       </ImageBackground>
     </View>
   );
@@ -100,9 +102,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    height: "20%",
+    height: 250,
     aspectRatio: 1,
-    marginTop: 120,
+    
     borderRadius: 10,
     borderWidth:5,
     borderColor: "#fff",

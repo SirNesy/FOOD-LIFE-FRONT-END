@@ -5,6 +5,7 @@ import { getUser, patchUser } from "../../Utils";
 import * as ImagePicker from 'expo-image-picker';
 import { getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import Gradient from "../../assets/Gradient.png";
+import AddPhoto from "../../assets/AddPhoto.png";
 import Icon from "react-native-vector-icons/Feather";
 
 const EditProfile = ({navigation}) => {
@@ -15,25 +16,38 @@ const EditProfile = ({navigation}) => {
   const [lastName, setLastName] = useState("");
   const [bio, setBio] = useState("");
   const [imageBlob, setImageBlob] = useState(null);
+  const [loading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const pathReference = ref(storage, `/${user}.jpg`);
-      getDownloadURL(pathReference).then(url => {
-          console.log(url)
-          setImage(url)
+    setIsLoading(true);
+    getUser(user).then((res) => { 
+      const pathReference = ref(storage, `/${user}.jpg`);
+      console.log(res)
+      setFirstName(res.firstName)
+      setLastName(res.lastName)
+      setBio(res.bio)
+      if (res.profile_pic) {
+        getDownloadURL(pathReference).then((url) => {
+        setImage(url)
+        setIsLoading(false);
+      });
+      } else {
+        setIsLoading(false);
       }
-    )
+      
+    });
+    
   }, [])
   
     
     const storageRef = ref(storage, `/${user}.jpg`)
     const handleSubmit = () => {
-        patchUser({firstName, lastName, bio, userId: user});
         if(imageBlob) {
           uploadBytes(storageRef, imageBlob).then(snapshot => {
-            console.log("uploaded a file!")
           })
         }
+        patchUser({firstName, lastName, bio, image, userId: user});
+        
         
         navigation.navigate("My Profile");
     }
@@ -46,8 +60,6 @@ const EditProfile = ({navigation}) => {
           quality: 1,
         });
     
-        console.log(result);
-    
         if (!result.canceled) {
           setImage(result.assets[0].uri)
           const response = await fetch(result.assets[0].uri);
@@ -59,12 +71,15 @@ const EditProfile = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={Gradient} style={styles.background}>
-      
+      {loading ? (
+    <Text>loading....</Text>
+  ) : ( <>
       <Pressable style={styles.imgPressable}
           onPress={pickImage}
         >
           <Icon style={styles.icon} name="edit-2" color="#FFF" size={40} />
-          {image && <Image source={{ uri: image }} style={styles.image} />}
+          
+          {image ? <Image source={{ uri: image }} style={styles.image}/> : <Image style={styles.image} source={AddPhoto} />}
           
         </Pressable>
       <TextInput style={styles.input} value={firstName}
@@ -87,7 +102,7 @@ const EditProfile = ({navigation}) => {
           }}
         >
           <Text>Submit</Text>
-        </Pressable>
+        </Pressable></>)}
         </ImageBackground>
     </View>
   );
