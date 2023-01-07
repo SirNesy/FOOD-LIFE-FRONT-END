@@ -1,11 +1,17 @@
 {
   "expo": {
-    "name": "FE-food-life",
+    "name": "Food Life",
+    "description": "This is an app that generates recipes for users based on ingredients they have already",
     "plugins": [
       [
         "expo-notifications",
         {
-          "icon": "./local/assets/notification-icon.png",
+          "icon": "./assets/Logo.png",
+          "splash": {
+            "image": "./assets/Gradient.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+          },
           "color": "#ffffff",
           "sounds": [
             "./local/assets/notification-sound.wav",
@@ -20,21 +26,18 @@
         }
       ]
     ],
-    "slug": "FE-food-life",
+    "slug": "Food-Life",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
-    "android": {
-    },
+    "android": {},
     "web": {
       "favicon": "./assets/favicon.png"
     }
