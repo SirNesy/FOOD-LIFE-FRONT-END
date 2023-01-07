@@ -22,19 +22,13 @@ export const postUser = ({
     });
 };
 
-export const patchUser = ({
-  firstName,
-  lastName,
-  bio,
-  image,
-  userId
-}) => {
+export const patchUser = ({ firstName, lastName, bio, image, userId }) => {
   return myApi
     .patch(`/users/${userId}`, {
       firstName: firstName,
       lastName: lastName,
       bio: bio,
-      profile_pic: image
+      profile_pic: image,
     })
     .then((res) => {
       return res.data.user;
@@ -91,7 +85,6 @@ export const getSpoonacularRecipes = () => {
     });
 };
 
-
 export const getRecipeById = (recipeId) => {
   return axios
     .get(
@@ -102,14 +95,12 @@ export const getRecipeById = (recipeId) => {
     });
 };
 
-
 export const getRecipesByIngredient = (ingredients) => {
   return axios
     .get(
       `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=15&apiKey=81726d20184e47e483fcb505e67dbd92`
     )
     .then((res) => {
-      
       return res.data;
     });
 };
@@ -129,20 +120,20 @@ export const getBarcode = (barcode) => {
     });
 };
 
-
 export const searchRecipes = (searchTerm) => {
   return axios
     .get(
       `https://api.spoonacular.com/recipes/complexSearch?query=${searchTerm}&apiKey=81726d20184e47e483fcb505e67dbd92&number=100`
     )
     .then((res) => {
-      
       return res.data.results;
-    }).catch(err => {
-      console.log(err)
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
 
 //razin b4e5d93ee4364a2f84c5096aff0247d7 x
 //isaac a9abf0d5fdeb4803b73a7c04f59572dd
 //onesi 81726d20184e47e483fcb505e67dbd92
+//
